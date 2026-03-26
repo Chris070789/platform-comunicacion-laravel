@@ -45,7 +45,7 @@ class WorkshopController extends Controller
             ->withCount('students')
             ->latest()
             ->get();
-        dd($talleres);
+        //dd($talleres);
         return view('docente.taller.index', compact('talleres'));
     }
 
