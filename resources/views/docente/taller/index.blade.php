@@ -33,7 +33,7 @@
                         @foreach ($talleres as $t)
                             <div class="p-4 flex justify-between items-center">
                                 <div>
-                                    <p class="font-bold">{{ $t->name }}</p>
+                                    <p class="font-bold">{{ $t->title }}</p>
                                     <p class="text-sm text-gray-600">{{ $t->description }}</p>
                                     <p class="text-xs text-gray-500">{{ $t->students_count }} alumnos</p>
                                 </div>
