@@ -24,4 +24,3 @@ return Application::configure(basePath: dirname(__DIR__))
         //
     })
     ->create();
-    ->create();
