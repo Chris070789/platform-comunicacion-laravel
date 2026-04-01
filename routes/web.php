@@ -139,7 +139,7 @@ Route::middleware(['auth', 'role:docente'])
         // Ejercicios (stages)
         Route::get('/taller/{workshop}/stages', [StageController::class, 'index'])->name('taller.stages');
         Route::get('/taller/{workshop}/stages/create', [StageController::class, 'create'])->name('stage.create');
-        Route::post('/taller/{workshop}/stages', [StageController::class, 'store'])->name('stage.store');
+        //Route::post('/taller/{workshop}/stages', [StageController::class, 'store'])->name('stage.store');
         Route::get('/stage/{stage}/edit', [StageController::class, 'edit'])->name('stage.edit');
         Route::put('/stage/{stage}', [StageController::class, 'update'])->name('stage.update');
         Route::delete('/stage/{stage}', [StageController::class, 'destroy'])->name('stage.destroy');
