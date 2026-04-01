@@ -128,6 +128,7 @@ Route::middleware(['auth', 'role:docente'])
     ->name('docente.')
     ->group(function () {
         // Talleres
+        //Route::get('/talleres', [WorkshopController::class, 'index'])->name('docente.taller.index');
         Route::get('/taller/create', [WorkshopController::class, 'create'])->name('taller.create');
         Route::post('/taller', [WorkshopController::class, 'store'])->name('taller.store');
         Route::get('/taller/{workshop}/edit', [WorkshopController::class, 'edit'])->name('taller.edit');
@@ -145,7 +146,7 @@ Route::middleware(['auth', 'role:docente'])
     });
 
 Route::get('/talleres', [WorkshopController::class, 'index'])
-    ->name('docente.taller.index');
+->name('docente.taller.index');
 
 Route::middleware(['auth', 'verified'])->prefix('docente')->name('docente.')->group(function () {
     Route::post('/workshops/{workshop}/stages', [StageController::class, 'store'])
