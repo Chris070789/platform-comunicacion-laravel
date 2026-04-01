@@ -45,7 +45,7 @@ class WorkshopPolicy
      */
     public function create(User $user): bool
     {
-        return false;
+        return $user->hasRole('docente');
     }
 
     /**
@@ -53,7 +53,7 @@ class WorkshopPolicy
      */
     public function update(User $user, Workshop $workshop): bool
     {
-       return $user->id === $workshop->docente_id || $user->hasRole('admin');
+        return $user->id === $workshop->docente_id || $user->hasRole('admin');
     }
 
     /**
