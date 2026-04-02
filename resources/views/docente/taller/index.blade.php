@@ -35,7 +35,7 @@
                                 <div>
                                     <p class="font-bold">{{ $t->title }}</p>
                                     <p class="text-sm text-gray-600">{{ $t->description }}</p>
-                                    <p class="text-xs text-gray-500">{{ $t->students_count }} alumnos</p>
+                                    <p class="text-xs text-gray-500">{{ $t->alumnos_count }} alumnos</p>
                                 </div>
                                 <div class="flex gap-2">
                                     <a href="{{ route('docente.taller.stages', $t) }}"

@@ -17,6 +17,6 @@ class Workshop extends Model
     }
     public function students()
     {
-        return $this->belongsToMany(User::class, 'workshop_user');
+        return $this->belongsToMany(User::class, 'workshop_user')->withTimestamps();
     }
 }

@@ -19,17 +19,20 @@ class WorkshopController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'        => 'required|string|max:255',
+            'title'        => 'required|string|max:255',
             'description' => 'nullable|string',
             'max_points'  => 'required|integer|min:1',
         ]);
 
         $taller = Workshop::create([
-            'title'        => $request->name,
+            'title'        => $request->title,
             'description' => $request->description,
             'max_points'  => $request->max_points,
             'docente_id'  => Auth::id(),
         ]);
+        // Aquí insertas en la tabla pivote
+        $taller->students()->attach(Auth::id());
+
 
         return redirect()
             ->route('docente.taller.stages', $taller)
@@ -42,7 +45,7 @@ class WorkshopController extends Controller
         /** @var User $user */
         $user = Auth::user();
         $talleres = Workshop::where('docente_id', $user->id)
-            ->withCount('students')
+            ->withCount('students as alumnos_count') // Contar alumnos por taller
             ->latest()
             ->get();
         //dd($talleres);
@@ -78,7 +81,7 @@ class WorkshopController extends Controller
         $workshop->delete();
 
         return redirect()
-            ->route('dashboard')
+            ->route('docente.taller.index')
             ->with('success', 'Taller eliminado.');
     }
 }

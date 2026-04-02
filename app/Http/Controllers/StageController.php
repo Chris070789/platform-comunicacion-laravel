@@ -35,9 +35,22 @@ class StageController extends Controller
             'name'        => 'required|string|max:255',
             'description' => 'required|string',
             'max_points'  => 'required|integer|min:1',
+            'pdf'         => 'nullable|file|mimes:pdf|max:2048',
+            'video'       => 'nullable|file|mimes:mp4,avi,mov,wmv|max:10240',
+
         ]);
 
         $lastPosition = $workshop->stages()->max('position') ?? 0;
+        $pdfPath = null;
+        $videoPath = null;
+        if ($request->hasFile('pdf')) {
+            $pdfPath = $request->file('pdf')->store('pdfs', 'public');
+        }
+
+        if ($request->hasFile('video')) {
+            $videoPath = $request->file('video')->store('videos', 'public');
+        }
+
 
         Stage::create([
             'workshop_id' => $workshop->id,
@@ -45,10 +58,12 @@ class StageController extends Controller
             'description' => $request->description,
             'max_points'  => $request->max_points,
             'position'    => $lastPosition + 1,
+            'pdf'         => $pdfPath,
+            'video'       => $videoPath,
         ]);
 
         return redirect()
-    ->route('docente.taller.stages', ['workshop' => $workshop->id]);
+            ->route('docente.taller.stages', ['workshop' => $workshop->id]);
     }
 
     /* ---------- Editar ejercicio ---------- */

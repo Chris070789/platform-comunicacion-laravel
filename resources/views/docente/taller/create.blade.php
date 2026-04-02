@@ -62,7 +62,7 @@
                                     </div>
 
                                     <div class="mt-6 flex items-center justify-end gap-2">
-                                        <a href="{{ route('docente.taller.index') }}" class="underline text-sm">Cancelar</a>
+                                        <a href="{{ route('dashboard') }}" class="underline text-sm">Cancelar</a>
                                         <x-primary-button>Crear</x-primary-button>
                                     </div>
                                 </form>

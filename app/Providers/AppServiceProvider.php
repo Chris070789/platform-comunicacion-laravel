@@ -31,6 +31,7 @@ class AppServiceProvider extends ServiceProvider
         Unidad::class => UnidadPolicy::class,
         \App\Models\Cronograma::class => \App\Policies\CronogramaPolicy::class,
         Workshop::class => WorkshopPolicy::class,
+        \App\Models\Stage::class => \App\Policies\StagePolicy::class,
     ];
 
 
@@ -45,6 +46,4 @@ class AppServiceProvider extends ServiceProvider
         // now Laravel will load resources/views/components/app-layout.blade.php
         // $this->registerPolicies(); // ← registra las políticas
     }
-
-
 }
