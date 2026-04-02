@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('submissions', function (Blueprint $table) {
-            //
+            $table->text('feedback')->nullable()->after('file_path');
+            $table->unsignedTinyInteger('grade')->nullable()->after('feedback');
         });
     }
 
@@ -22,7 +23,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('submissions', function (Blueprint $table) {
-            //
+            $table->dropColumn(['feedback', 'grade']);
         });
     }
 };
