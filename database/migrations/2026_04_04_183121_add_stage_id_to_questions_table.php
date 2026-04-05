@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-e<?php
-=======
 <?php
->>>>>>> 26e60e7a559b73994959483d3fcad613cbf57b43
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -15,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('submissions', function (Blueprint $table) {
-            //
+        Schema::table('questions', function (Blueprint $table) {
+            $table->foreignId('stage_id')->constrained()->onDelete('cascade');
         });
     }
 
@@ -25,8 +21,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('submissions', function (Blueprint $table) {
-            //
+        Schema::table('questions', function (Blueprint $table) {
+            $table->dropForeign(['stage_id']);
+            $table->dropColumn('stage_id');
         });
     }
 };

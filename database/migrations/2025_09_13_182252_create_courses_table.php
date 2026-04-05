@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-e<?php
-=======
 <?php
->>>>>>> 26e60e7a559b73994959483d3fcad613cbf57b43
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -15,8 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('submissions', function (Blueprint $table) {
-            //
+        Schema::create('courses', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('code')->unique();
+            $table->timestamps();
         });
     }
 
@@ -25,8 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('submissions', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('courses');
     }
 };
