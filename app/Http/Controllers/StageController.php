@@ -6,10 +6,7 @@ use App\Models\Stage;
 use App\Models\Workshop;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-<<<<<<< HEAD
-=======
 use Illuminate\Support\Facades\DB; // Importar al inicio
->>>>>>> 26e60e7a559b73994959483d3fcad613cbf57b43
 
 class StageController extends Controller
 {
@@ -33,11 +30,8 @@ class StageController extends Controller
     /* ---------- Guardar ejercicio ---------- */
     public function store(Request $request, Workshop $workshop)
     {
-<<<<<<< HEAD
-=======
         //  dd($request->all());
 
->>>>>>> 26e60e7a559b73994959483d3fcad613cbf57b43
         $this->authorize('update', $workshop);
 
         $request->validate([
@@ -46,37 +40,6 @@ class StageController extends Controller
             'max_points'  => 'required|integer|min:1',
             'pdf'         => 'nullable|file|mimes:pdf|max:2048',
             'video'       => 'nullable|file|mimes:mp4,avi,mov,wmv|max:10240',
-<<<<<<< HEAD
-
-        ]);
-
-        $lastPosition = $workshop->stages()->max('position') ?? 0;
-        $pdfPath = null;
-        $videoPath = null;
-        if ($request->hasFile('pdf')) {
-            $pdfPath = $request->file('pdf')->store('pdfs', 'public');
-        }
-
-        if ($request->hasFile('video')) {
-            $videoPath = $request->file('video')->store('videos', 'public');
-        }
-
-
-        Stage::create([
-            'workshop_id' => $workshop->id,
-            'name'        => $request->name,
-            'description' => $request->description,
-            'max_points'  => $request->max_points,
-            'position'    => $lastPosition + 1,
-            'pdf'         => $pdfPath,
-            'video'       => $videoPath,
-        ]);
-
-        return redirect()
-            ->route('docente.taller.stages', ['workshop' => $workshop->id]);
-    }
-
-=======
             // Validaciones para preguntas
             'questions'    => 'required|array|min:1',
             'questions.*.content' => 'required|string',
@@ -135,7 +98,6 @@ class StageController extends Controller
 
 
 
->>>>>>> 26e60e7a559b73994959483d3fcad613cbf57b43
     /* ---------- Editar ejercicio ---------- */
     public function edit(Stage $stage)
     {

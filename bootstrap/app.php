@@ -23,10 +23,6 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withExceptions(function (Exceptions $exceptions): void {
         //
     })
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 26e60e7a559b73994959483d3fcad613cbf57b43
 
     ->create();

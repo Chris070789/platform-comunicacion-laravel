@@ -28,12 +28,8 @@ class StagePolicy
      */
     public function create(User $user): bool
     {
-<<<<<<< HEAD
-        return $user->hasRole('docente') || $user->hasPermissionTo('create stages');
-=======
         return $user->can('create stages');
 
->>>>>>> 26e60e7a559b73994959483d3fcad613cbf57b43
     }
 
     /**
