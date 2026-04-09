@@ -20,7 +20,22 @@ class StagePolicy
      */
     public function view(User $user, Stage $stage): bool
     {
-        return $user->hasRole('admin') || $user->id === $stage->user_id;
+        // Admin siempre puede
+        if ($user->hasRole('admin')) {
+            return true;
+        }
+
+        // El dueño del stage (docente)
+        if ($user->id === $stage->user_id) {
+            return true;
+        }
+
+        // Los alumnos también pueden ver
+        if ($user->hasRole('alumno')) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -29,7 +44,6 @@ class StagePolicy
     public function create(User $user): bool
     {
         return $user->can('create stages');
-
     }
 
     /**
