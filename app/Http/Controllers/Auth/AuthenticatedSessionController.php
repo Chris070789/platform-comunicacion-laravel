@@ -44,4 +44,10 @@ class AuthenticatedSessionController extends Controller
 
         return redirect('/');
     }
+
+    public function dashboard()
+    {
+        $stages = Stage::all(); // o filtrados por workshop, rol, etc.
+        return view('dashboard', compact('stages'));
+    }
 }
