@@ -31,8 +31,14 @@ class Stage extends Model
         return $this->hasMany(Question::class);
     }
 
+    public function options()
+    {
+        return $this->hasMany(Option::class);
+    }
+
     public function scopeOrdered($query)
     {
         return $query->orderBy('position');
     }
+    
 }

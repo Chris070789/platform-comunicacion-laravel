@@ -67,6 +67,87 @@
                            focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500
                            transition duration-150 ease-in-out">
             </div>
+            <div class="mb-6">
+                <h3 class="text-lg font-bold text-gray-800 dark:text-white mb-4">Cuestionario</h3>
+
+                <div id="quiz-container" class="space-y-6">
+                </div>
+
+                <button type="button" onclick="addQuestion()"
+                    class="mt-4 inline-flex items-center px-4 py-2 bg-green-600 text-white text-sm font-medium rounded-md hover:bg-green-700 transition">
+                    + Añadir Pregunta
+                </button>
+            </div>
+
+            <template id="question-template">
+                @foreach ($stage->questions as $qIndex => $question)
+                    <div
+                        class="question-block p-4 bg-gray-50 dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700 relative">
+                        <button type="button" onclick="removeQuestion(this)"
+                            class="text-gray-400 hover:text-red-500">Eliminar</button>
+
+                        <div class="mb-3">
+                            <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Pregunta</label>
+                            <input type="text" name="questions[{{ $qIndex }}][content]"
+                                value="{{ $question->content }}"
+                                class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300
+                           focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
+                        </div>
+
+                        <div class="options-container space-y-2">
+                        </div>
+
+                        <button type="button" onclick="addOption(this)"
+                            class="mt-3 text-xs text-indigo-600 dark:text-indigo-400 hover:underline">
+                            + Añadir Opción
+                        </button>
+                    </div>
+                @endforeach
+            </template>
+            <div class="options-container space-y-2">
+                @foreach ($question->options as $oIndex => $option)
+                    <div class="flex items-center gap-2 option-row">
+                        <input type="hidden"
+                            name="questions[{{ $qIndex }}][options][{{ $oIndex }}][is_correct]"
+                            value="0">
+                        <input type="checkbox"
+                            name="questions[{{ $qIndex }}][options][{{ $oIndex }}][is_correct]"
+                            value="1" class="h-4 w-4 text-indigo-600 border-gray-300 rounded"
+                            @checked($option->is_correct)>
+
+                        <input type="text"
+                            name="questions[{{ $qIndex }}][options][{{ $oIndex }}][option_text]"
+                            value="{{ $option->option_text }}"
+                            class="block w-full text-xs bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 dark:text-gray-300 rounded-md">
+
+                        <button type="button" onclick="this.parentElement.remove()"
+                            class="text-gray-400 hover:text-red-500">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+                @endforeach
+            </div>
+
+            <template id="option-template">
+                <div class="flex items-center gap-2 option-row">
+                    <input type="hidden" name="questions[INDEX][options][__OPT__][is_correct]" value="0">
+                    <input type="checkbox" name="questions[INDEX][options][__OPT__][is_correct]" value="1"
+                        class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
+
+                    <input type="text" name="questions[INDEX][options][__OPT__][option_text]"
+                        placeholder="Respuesta..."
+                        class="block w-full text-xs bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 dark:text-gray-300 rounded-md">
+
+                    <button type="button" onclick="this.parentElement.remove()"
+                        class="text-gray-400 hover:text-red-500">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+            </template>
 
             <div class="flex justify-end">
                 <button
@@ -82,4 +163,58 @@
             </div>
         </form>
     </div>
+    <script>
+        let questionCount = 0;
+
+        function addQuestion() {
+            const container = document.getElementById('quiz-container');
+            const template = document.getElementById('question-template').innerHTML;
+
+            let html = template.replace(/INDEX/g, questionCount);
+
+            const div = document.createElement('div');
+            div.innerHTML = html;
+            container.appendChild(div.firstElementChild);
+
+            const lastQuestionBlock = container.lastElementChild;
+            addOption(lastQuestionBlock.querySelector('button[onclick="addOption(this)"]'));
+            addOption(lastQuestionBlock.querySelector('button[onclick="addOption(this)"]'));
+
+            questionCount++;
+        }
+
+        function addOption(button) {
+            const questionBlock = button.closest('.question-block');
+            const optionsContainer = questionBlock.querySelector('.options-container');
+            const template = document.getElementById('option-template').innerHTML;
+
+            const qIndex = questionBlock.querySelector('input[name*="[content]"]').name.match(/\d+/)[0];
+            const optIndex = optionsContainer.querySelectorAll('.option-row').length;
+
+            let html = template.replace(/INDEX/g, qIndex).replace(/__OPT__/g, optIndex);
+
+            const div = document.createElement('div');
+            div.innerHTML = html;
+            optionsContainer.appendChild(div.firstElementChild);
+        }
+
+        function removeQuestion(button) {
+            // Confirmamos antes de borrar para evitar accidentes
+            if (confirm('¿Estás seguro de que deseas eliminar esta pregunta y todas sus opciones?')) {
+                const questionBlock = button.closest('.question-block');
+                questionBlock.remove();
+
+                // Opcional: Si quieres que siempre haya al menos una pregunta,
+                // puedes verificar si el contenedor quedó vacío y llamar a addQuestion()
+                const container = document.getElementById('quiz-container');
+                if (container.children.length === 0) {
+                    addQuestion();
+                }
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            addQuestion();
+        });
+    </script>
 </x-app-layout>

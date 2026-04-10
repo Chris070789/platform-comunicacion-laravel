@@ -6,7 +6,6 @@ use App\Models\Curso;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
 class AdminCursoController extends Controller
 {
     public function index()
@@ -16,6 +15,7 @@ class AdminCursoController extends Controller
             ->latest()
             ->get();
         return view('admin.cursos.index', compact('cursos'));
+
     }
 
     public function create()
@@ -77,4 +77,5 @@ class AdminCursoController extends Controller
         return redirect()->route('admin.cursos.index')
             ->with('success', 'Curso eliminado.');
     }
+
 }

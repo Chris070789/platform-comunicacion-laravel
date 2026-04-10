@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Stage;
+use App\Models\StageUserAnswer;
 use App\Models\Workshop;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB; // Importar al inicio
+
 
 class StageController extends Controller
 {
@@ -102,6 +105,8 @@ class StageController extends Controller
     public function edit(Stage $stage)
     {
         $this->authorize('update', $stage->workshop);
+        // Cargar preguntas y opciones relacionadas
+        $stage->load('questions.options');
         return view('docente.stage.edit', compact('stage'));
     }
 
@@ -138,5 +143,46 @@ class StageController extends Controller
         return redirect()
             ->route('docente.taller.stages', $workshop)
             ->with('success', 'Ejercicio eliminado.');
+    }
+    /* ---------- ver ejercicio ---------- */
+    public function show(Stage $stage)
+    {
+        $this->authorize('view', $stage);
+
+        return view('alumno.stages.show', compact('stage'));
+    }
+
+    /*---------- Responder ejercicio ---------- */
+    public function answer(Request $request, Stage $stage)
+    {
+        $answers = $request->input('answers', []); // si no hay, devuelve array vacío
+
+        foreach ($answers as $questionId => $optionId) {
+
+            StageUserAnswer::updateOrCreate(
+                [
+                    'user_id' => Auth::id(),
+                    'stage_id' => $stage->id,
+                    'question_id' => $questionId,
+                ],
+                [
+                    'option_id' => $optionId,
+                ]
+            );
+        }
+
+        // Buscar el siguiente stage
+        $nextStage = Stage::where('workshop_id', $stage->workshop_id)
+            ->where('id', '>', $stage->id)
+            ->orderBy('id')
+            ->first();
+
+        if (!is_null($nextStage)) {
+            return redirect()->route('alumno.stages.show', $nextStage);
+        }
+
+        // Si no hay siguiente stage o si $stage->workshop_id es null
+        return redirect()->route('dashboard')
+            ->with('success', 'Has completado todos los stages');
     }
 }

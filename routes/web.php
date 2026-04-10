@@ -15,6 +15,7 @@ use App\Http\Controllers\BibliotecaController;
 use App\Http\Controllers\AlumnoBibliotecaController;
 use App\Http\Controllers\WorkshopController;
 use App\Http\Controllers\StageController;
+use App\Http\Controllers\DashboardController;
 
 Route::get('/', function () {
     // return view('welcome');
@@ -139,7 +140,7 @@ Route::middleware(['auth', 'role:docente'])
         // Ejercicios (stages)
         Route::get('/taller/{workshop}/stages', [StageController::class, 'index'])->name('taller.stages');
         Route::get('/taller/{workshop}/stages/create', [StageController::class, 'create'])->name('stage.create');
-       // Route::post('/taller/{workshop}/stages', [StageController::class, 'store'])->name('stage.store');
+        // Route::post('/taller/{workshop}/stages', [StageController::class, 'store'])->name('stage.store');
         Route::get('/stage/{stage}/edit', [StageController::class, 'edit'])->name('stage.edit');
         Route::put('/stage/{stage}', [StageController::class, 'update'])->name('stage.update');
         Route::delete('/stage/{stage}', [StageController::class, 'destroy'])->name('stage.destroy');
@@ -152,5 +153,19 @@ Route::middleware(['auth', 'verified'])->prefix('docente')->name('docente.')->gr
     Route::post('/workshops/{workshop}/stages', [StageController::class, 'store'])
         ->name('stages.store');
 });
+
+Route::middleware(['auth', 'role:alumno'])->group(function () {
+    Route::get('/alumno/stages/{stage}', [StageController::class, 'show'])->name('alumno.stage.show');
+});
+
+//Route::get('/dashboard', [DashboardController::class, 'index'])
+    //->middleware(['auth'])
+    //->name('dashboard');
+
+Route::get('/alumno/stages/{stage}', [StageController::class, 'show'])
+    ->name('alumno.stages.show');
+
+Route::post('/alumno/stages/{stage}/answer', [StageController::class, 'answer'])
+    ->name('alumno.stages.answer');
 
 require __DIR__ . '/auth.php';
