@@ -40,5 +40,23 @@ class Stage extends Model
     {
         return $query->orderBy('position');
     }
-    
+
+    public function answers()
+    {
+        return $this->belongsToMany(User::class, 'stage_user_answers')
+            ->withPivot('completed');
+    }
+
+     /**
+     * Define los casts para los atributos del modelo.
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'position' => 'integer',
+            'max_points' => 'integer',
+        ];
+    }
+
 }

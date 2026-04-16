@@ -158,9 +158,13 @@ Route::middleware(['auth', 'role:alumno'])->group(function () {
     Route::get('/alumno/stages/{stage}', [StageController::class, 'show'])->name('alumno.stage.show');
 });
 
-//Route::get('/dashboard', [DashboardController::class, 'index'])
-    //->middleware(['auth'])
-    //->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->middleware(['auth'])
+    ->name('dashboard');
+
+Route::get('/dashboard/stage/{stage}', [DashboardController::class, 'showStage'])
+    ->middleware(['auth'])
+    ->name('dashboard.stage');
 
 Route::get('/alumno/stages/{stage}', [StageController::class, 'show'])
     ->name('alumno.stages.show');

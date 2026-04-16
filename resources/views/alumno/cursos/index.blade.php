@@ -45,13 +45,16 @@
             @endforelse
 
             @forelse ($stages as $stage)
-                <a href="{{ route('alumno.stages.show', $stage) }}"
-                    class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-purple-700 to-indigo-800 p-6 shadow-lg">
-                    <div>
-                        <h3 class="text-xl font-bold text-white">{{ $stage->name }}</h3>
-                        <p class="text-sm text-gray-300">Accedé al ejercicio de {{ $stage->name }}</p>
-                    </div>
-                </a>
+                <div
+                    class="group relative bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 shadow-lg hover:shadow-2xl hover:shadow-indigo-500/30 transition-all duration-300 hover:-translate-y-1">
+                    <a href="{{ route('alumno.stages.show', $stage) }}" class="flex items-center gap-4">
+                        <i class="bi bi-flag text-3xl text-indigo-400 group-hover:scale-110 transition-transform"></i>
+                        <div>
+                            <h3 class="text-xl font-bold text-white">{{ $stage->name }}</h3>
+                            <p class="text-sm text-gray-300">Accedé al ejercicio de {{ $stage->name }}</p>
+                        </div>
+                    </a>
+                </div>
             @empty
                 <p class="mt-4 text-lg text-gray-300">Aún no estás inscrito en ningún curso.</p>
                 <p class="text-sm text-gray-400">Cuando te inscribas en uno aparecerá aquí.</p>

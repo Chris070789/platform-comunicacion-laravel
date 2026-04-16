@@ -97,4 +97,23 @@ class User extends Authenticatable
     {
         return $this->hasMany(Workshop::class, 'docente_id');
     }
+
+    public function stageAnswers()
+    {
+        return $this->hasMany(StageUserAnswer::class);
+    }
+
+    public function stages()
+    {
+        // Esta es la relación muchos a muchos
+        return $this->belongsToMany(Stage::class, 'stage_user_answers')
+            ->withPivot('completed') // Traemos la columna de la tabla intermedia
+            ->withTimestamps();
+    }
+
+    public function completedStages()
+    {
+        // Esta es una versión filtrada de la relación anterior
+        return $this->stages()->wherePivot('completed', true);
+    }
 }

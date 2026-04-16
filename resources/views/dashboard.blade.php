@@ -48,6 +48,36 @@
                         </div>
                     </div>
                 </a>
+
+                {{-- Progreso global --}}
+                <div class="mb-6">
+                    <a href="{{ route('dashboard') }}"></a>
+                    <div
+                        class="md:col-span-2 bg-white dark:bg-gray-800 p-6 rounded-lg shadow border border-gray-200 dark:border-gray-700">
+                        <h2 class="text-xl font-bold">Progreso Global</h2>
+                        <div class="progress">
+                            <div class="progress-bar bg-indigo-500" role="progressbar" style="width: {{ $progress }}%;"
+                                aria-valuenow="{{ $progress }}" aria-valuemin="0" aria-valuemax="100">
+                                {{ round($progress) }}%
+                            </div>
+                        </div>
+                        <p>Etapas completadas: {{ $completedStages }} de {{ $totalStages }}</p>
+                    </div>
+                </div>
+
+                {{-- Listado de etapas --}}
+                <div class="mb-4">
+                    <h3 class="text-lg font-semibold mt-8">Etapas</h3>
+                    @foreach ($stages as $stage)
+                        <div class="mb-4 p-4 border rounded">
+                            <h4>{{ $stage->name }}</h4>
+                            <p>{{ $stage->description }}</p>
+                            <a href="{{ route('dashboard.stage', $stage->id) }}" class="text-indigo-500 hover:underline">
+                                Ver progreso
+                            </a>
+                        </div>
+                    @endforeach
+                </div>
             @endrole
 
             {{-- DOCENTE --}}
@@ -159,4 +189,32 @@
 
         </div>
     </div>
+    <script>
+        // Aquí podrías agregar JavaScript para animar la barra de progreso o el porcentajeconst total = {{ $totalStages }};
+        const answered = {{ $completedStages }};
+        let chart;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('progressChart').getContext('2d');
+            chart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    datasets: [{
+                        data: [answered, total - answered],
+                        backgroundColor: ['#6366f1', '#374151'],
+                        borderWidth: 0,
+                        cutout: '85%'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        tooltip: {
+                            enabled: false
+                        }
+                    }
+                }
+            });
+        });
+    </script>
 @endsection

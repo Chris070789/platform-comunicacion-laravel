@@ -167,6 +167,7 @@ class StageController extends Controller
                 ],
                 [
                     'option_id' => $optionId,
+                    'completed' => true, // Marcar como completado al responder
                 ]
             );
         }

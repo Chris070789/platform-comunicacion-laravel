@@ -19,4 +19,8 @@ class Workshop extends Model
     {
         return $this->belongsToMany(User::class, 'workshop_user')->withTimestamps();
     }
+    public function answers()
+    {
+        return $this->hasMany(StageUserAnswer::class);
+    }
 }

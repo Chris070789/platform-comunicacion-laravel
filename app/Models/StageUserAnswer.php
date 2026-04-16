@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 class StageUserAnswer extends Model
 {
     use HasFactory;
@@ -13,6 +14,11 @@ class StageUserAnswer extends Model
         'stage_id',
         'question_id',
         'option_id',
+        'completed',
+    ];
+
+    protected $casts = [
+        'completed' => 'boolean',
     ];
 
     // Relaciones útiles
@@ -35,5 +41,4 @@ class StageUserAnswer extends Model
     {
         return $this->belongsTo(Option::class);
     }
-
 }
