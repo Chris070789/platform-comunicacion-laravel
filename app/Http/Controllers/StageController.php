@@ -115,11 +115,21 @@ class StageController extends Controller
     {
         $this->authorize('update', $stage->workshop);
 
+
         $request->validate([
             'name'        => 'required|string|max:255',
             'description' => 'required|string',
             'max_points'  => 'required|integer|min:1',
         ]);
+        if ($request->hasFile('pdf')) {
+            $pdfPath = $request->file('pdf')->store('pdfs', 'public');
+            $stage->pdf = $pdfPath;
+        }
+
+        if ($request->hasFile('video')) {
+            $videoPath = $request->file('video')->store('videos', 'public');
+            $stage->video = $videoPath;
+        }
 
         $stage->update($request->only('name', 'description', 'max_points'));
 

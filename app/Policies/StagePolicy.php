@@ -61,4 +61,6 @@ class StagePolicy
     {
         return $user->hasRole('admin') || $user->id === $stage->user_id;
     }
+
+
 }

@@ -116,4 +116,21 @@ class User extends Authenticatable
         // Esta es una versión filtrada de la relación anterior
         return $this->stages()->wherePivot('completed', true);
     }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
+    public function topics()
+    {
+        return $this->hasMany(Topic::class);
+    }
+    public function chatMessages()
+    {
+        return $this->hasMany(ChatMessage::class);
+    }
+    public function chatGroups()
+    {
+        return $this->hasMany(ChatGroup::class); // si es docente creador
+    }
 }

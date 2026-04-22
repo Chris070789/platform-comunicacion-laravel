@@ -17,7 +17,11 @@
                     <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">Descripción de la etapa</h3>
                     <p class="text-gray-900 dark:text-gray-100">{{ $stage->description }}</p>
                 </div>
-
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow border border-gray-200 dark:border-gray-700">
+                    <a href="{{ asset('storage/' . $stage->pdf) }}" target="_blank" class="text-blue-600 underline">
+                        Ver PDF
+                    </a>
+                </div>
                 <div
                     class="md:col-span-2 bg-white dark:bg-gray-800 p-6 rounded-lg shadow border border-gray-200 dark:border-gray-700">
                     <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 mb-4">Marca la opción correcta</h3>
@@ -32,7 +36,8 @@
                                     <div>
                                         <input type="radio" name="answers[{{ $question->id }}]"
                                             value="{{ $option->id }}">
-                                        <label class="text-gray-700 dark:text-gray-300">{{ $option->option_text }}</label>
+                                        <label
+                                            class="text-gray-700 dark:text-gray-300">{{ $option->option_text }}</label>
                                     </div>
                                 @endforeach
                             </div>
