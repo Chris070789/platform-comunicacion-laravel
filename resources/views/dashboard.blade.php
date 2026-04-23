@@ -154,6 +154,18 @@
                         </div>
                     </div>
                 </a>
+
+                @can('create', App\Models\Forum::class)
+                    <a href="{{ route('forums.create') }}" class="card">
+                        <h3>Crear Foro</h3>
+                        <p>Genera un nuevo espacio de discusión</p>
+                    </a>
+                @endcan
+
+                <a href="{{ route('chat-groups.index') }}" class="card">
+                    <h3>Grupos de Chat</h3>
+                    <p>Gestiona tus grupos de conversación en tiempo real</p>
+                </a>
             @endrole
 
             {{-- ADMIN --}}

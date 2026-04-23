@@ -34,7 +34,7 @@ class ChatGroupController extends Controller
         $user = Auth::user();
         ChatGroup::create([
             'name' => $request->name,
-            'user_id' => $user->id(), // docente creador
+            'user_id' => $user->id, // docente creador
         ]);
         return redirect()->route('chat-groups.index');
     }

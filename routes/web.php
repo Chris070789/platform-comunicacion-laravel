@@ -16,6 +16,11 @@ use App\Http\Controllers\AlumnoBibliotecaController;
 use App\Http\Controllers\WorkshopController;
 use App\Http\Controllers\StageController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ForumController;
+use App\Http\Controllers\TopicController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\ChatGroupController;
+use App\Http\Controllers\ChatMessageController;
 
 Route::get('/', function () {
     // return view('welcome');
@@ -171,5 +176,20 @@ Route::get('/alumno/stages/{stage}', [StageController::class, 'show'])
 
 Route::post('/alumno/stages/{stage}/answer', [StageController::class, 'answer'])
     ->name('alumno.stages.answer');
+
+// Foros
+Route::resource('forums', ForumController::class);
+
+// Temas dentro de un foro
+Route::resource('forums.topics', TopicController::class);
+
+// Posts dentro de un tema
+Route::resource('topics.posts', PostController::class);
+
+// Chats grupales
+Route::resource('chat-groups', ChatGroupController::class)->name('index', 'chat-groups.index');
+
+// Mensajes dentro de un chat
+Route::resource('chat-groups.messages', ChatMessageController::class);
 
 require __DIR__ . '/auth.php';

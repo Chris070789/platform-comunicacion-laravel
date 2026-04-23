@@ -15,6 +15,41 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    {{-- Foros --}}
+                    @role('docente')
+                        @can('create', App\Models\Forum::class)
+                            <x-nav-link :href="route('forums.index')" :active="request()->routeIs('forums.*')">
+                                {{ __('Foros (Docente)') }}
+                            </x-nav-link>
+                        @endcan
+
+                        @can('postMessage', App\Models\Forum::class)
+                            <form method="POST" action="{{ route('posts.store') }}">
+                                @csrf
+                                <textarea name="content"></textarea>
+                                <button type="submit">Enviar mensaje</button>
+                            </form>
+                        @endcan
+                    @endrole
+
+                    @role('alumno')
+                        <x-nav-link :href="route('forums.index')" :active="request()->routeIs('forums.*')">
+                            {{ __('Foros') }}
+                        </x-nav-link>
+                    @endrole
+
+                    {{-- Chat grupal --}}
+                    @role('docente')
+                        <x-nav-link :href="route('chat-groups.index')" :active="request()->routeIs('chat-groups.*')">
+                            {{ __('Gestionar Chats') }}
+                        </x-nav-link>
+                    @endrole
+
+                    @role('alumno')
+                        <x-nav-link :href="route('chat-groups.index')" :active="request()->routeIs('chat-groups.*')">
+                            {{ __('Participar en Chats') }}
+                        </x-nav-link>
+                    @endrole
                 </div>
             </div>
 
@@ -110,6 +145,7 @@
                     </x-responsive-nav-link>
                 </form>
             </div>
+
         </div>
     </div>
 </nav>

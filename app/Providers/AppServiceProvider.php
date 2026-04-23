@@ -32,6 +32,7 @@ class AppServiceProvider extends ServiceProvider
         \App\Models\Cronograma::class => \App\Policies\CronogramaPolicy::class,
         Workshop::class => WorkshopPolicy::class,
         \App\Models\Stage::class => \App\Policies\StagePolicy::class,
+        \App\Models\Forum::class => \App\Policies\ForumPolicy::class,
     ];
 
 

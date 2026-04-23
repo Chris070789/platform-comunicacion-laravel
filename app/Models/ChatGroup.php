@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ChatGroup extends Model
 {
+    protected $fillable = ['name', 'user_id'];
     public function messages()
     {
         return $this->hasMany(ChatMessage::class);
