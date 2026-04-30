@@ -4,43 +4,60 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ChatGroup;
+use App\Models\ChatMessage;
 use Illuminate\Support\Facades\Auth;
 use App\Events\NewChatMessage;
+use Illuminate\Support\Facades\Log;
 
 class ChatMessageController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(ChatGroup $chatGroup)
     {
-        //
+        $chatGroup = ChatGroup::with('messages.user')->findOrFail($chatGroup->id);
+        $groups = ChatGroup::all(); // o lo que quieras mostrar
+        $messages = $chatGroup->messages()->with('user')->get();
+
+
+        return view('chat.index', compact('chatGroup', 'groups', 'messages'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(ChatGroup $chatGroup)
     {
-        //
+        $chatGroup = ChatGroup::findOrFail($chatGroup->id);
+        return view('chat.create', compact('chatGroup'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, ChatGroup $chatGroup)
     {
-         /** @var \App\Models\User $user */
+        // dd($request->all());
         $user = Auth::user();
-        $chatGroup = ChatGroup::findOrFail($request->chat_group_id);
+        // Validación estricta
+        $validated = $request->validate([
+            'message' => 'required|string|max:1000',
+        ]);
+        // Crear mensaje vinculado al grupo y usuario
         $message = $chatGroup->messages()->create([
-            'user_id' => $user->id(),
-            'message' => $request->message,
+            'user_id' => $user->id,
+            'message' => $validated['message'],
         ]);
 
-        // broadcast(new NewChatMessage($chatGroup->id, $message->message, $user))->toOthers();
+        broadcast(new NewChatMessage($message))->toOthers();
 
-        return response()->json(['status' => 'ok']);
+        // Respuesta clara en JSON
+        return response()->json([
+            'status' => 'ok',
+            'message' => $message,
+            'user' => $user,
+        ]);
     }
 
     /**

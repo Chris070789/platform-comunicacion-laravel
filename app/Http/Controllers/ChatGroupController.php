@@ -30,7 +30,7 @@ class ChatGroupController extends Controller
      */
     public function store(Request $request)
     {
-         /** @var \App\Models\User $user */
+        /** @var \App\Models\User $user */
         $user = Auth::user();
         ChatGroup::create([
             'name' => $request->name,
@@ -42,9 +42,12 @@ class ChatGroupController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(ChatGroup $chatGroup)
     {
-        //
+        // Carga el grupo con sus mensajes
+        $chatGroup->load('messages.user');
+
+        return view('chat.show', compact('chatGroup'));
     }
 
     /**

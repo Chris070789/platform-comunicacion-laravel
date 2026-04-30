@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Forum;
+use App\Models\Topic;
 use Illuminate\Support\Facades\Auth;
 
 class TopicController extends Controller
@@ -11,46 +12,62 @@ class TopicController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Forum $forum)
     {
-        //
+        $topics = $forum->topics()->latest()->get();
+
+        // Aquí enviamos $forum y $topics a la vista
+        return view('topics.index', compact('forum', 'topics'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create($forumId)
     {
-        //
+        // Buscamos el foro para asegurarnos de que existe y para usar sus datos en la vista
+        $forum = Forum::findOrFail($forumId);
+
+        // Retornamos la vista pasando la variable $forum
+        return view('topics.create', compact('forum'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, Forum $forum)
     {
-         /** @var \App\Models\User $user */
+        /** @var \App\Models\User $user */
         $user = Auth::user();
-        $forum = Forum::findOrFail($request->forum_id);
-        $forum->topics()->create([
-            'title' => $request->title,
-            'user_id' => $user->id(),
+        $data = $request->validate([
+            'title' => 'required|string|max:255',
         ]);
-        return back();
+
+        // Asignar manualmente los campos que no vienen del formulario
+        $data['user_id'] = $user->id;
+        $data['forum_id'] = $forum->id;
+
+        Topic::create($data);
+        //dd($data);
+
+        return redirect()->route('forums.topics.index', $forum);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Forum $forum, Topic $topic)
     {
-        //
+        // Cargamos los posts y sus autores de una sola vez
+        $topic->load('posts.user');
+
+        return view('forums.topics.show', compact('forum', 'topic'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Topic $topic)
     {
         //
     }
@@ -58,7 +75,7 @@ class TopicController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Topic $topic)
     {
         //
     }
@@ -66,7 +83,7 @@ class TopicController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Topic $topic)
     {
         //
     }

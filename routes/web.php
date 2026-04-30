@@ -187,9 +187,15 @@ Route::resource('forums.topics', TopicController::class);
 Route::resource('topics.posts', PostController::class);
 
 // Chats grupales
-Route::resource('chat-groups', ChatGroupController::class)->name('index', 'chat-groups.index');
+Route::resource('chat-groups', ChatGroupController::class)
+    ->names([
+        'index' => 'chat-groups.index',
+        'show'  => 'chat-groups.show',
+    ]);
 
 // Mensajes dentro de un chat
 Route::resource('chat-groups.messages', ChatMessageController::class);
+
+
 
 require __DIR__ . '/auth.php';

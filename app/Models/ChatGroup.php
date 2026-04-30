@@ -9,10 +9,15 @@ class ChatGroup extends Model
     protected $fillable = ['name', 'user_id'];
     public function messages()
     {
-        return $this->hasMany(ChatMessage::class);
+        return $this->hasMany(ChatMessage::class, 'chat_group_id');
     }
     public function creator()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }
