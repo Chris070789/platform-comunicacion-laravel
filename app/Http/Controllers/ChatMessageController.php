@@ -50,13 +50,11 @@ class ChatMessageController extends Controller
             'message' => $validated['message'],
         ]);
 
-        broadcast(new NewChatMessage($message))->toOthers();
-
         // Respuesta clara en JSON
         return response()->json([
             'status' => 'ok',
             'message' => $message,
-            'user' => $user,
+            'user' => ['id' => $user->id], // Solo datos esenciales del usuario
         ]);
     }
 
