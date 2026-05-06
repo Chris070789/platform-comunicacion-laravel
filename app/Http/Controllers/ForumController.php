@@ -34,11 +34,13 @@ class ForumController extends Controller
         $user = Auth::user();
         $validated = $request->validate([
             'title' => 'required|string|max:255',
+            'description' => 'nullable|string',
         ]);
 
         // Crear el foro y asignar el docente creador
         $forum = Forum::create([
             'title' => $validated['title'],
+            'description' => $validated['description'],
             'user_id' => $user->id, // opcional si quieres guardar el creador
         ]);
 
@@ -63,24 +65,31 @@ class ForumController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Forum $forum)
     {
-        //
+        return view('forums.edit', compact('forum'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Forum $forum)
     {
-        //
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string',
+        ]);
+
+        $forum->update($validated);
+        return redirect()->route('forums.show', $forum)->with('success', 'Foro actualizado correctamente.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Forum $forum)
     {
-        //
+        $forum->delete();
+        return redirect()->route('forums.index')->with('success', 'Foro eliminado.');
     }
 }

@@ -3,21 +3,16 @@
 @section('content')
     <div class="container">
         <h1>{{ $topic->title }}</h1>
-        <p>{{ $topic->content }}</p>
+        <p>Foro: {{ $forum->title }}</p>
 
-        <h3>Posts</h3>
+        <h3>Posts en este tema</h3>
         <ul>
             @foreach ($topic->posts as $post)
                 <li>
-                    <a href="{{ route('posts.show', $post) }}">
-                        {{ Str::limit($post->content, 50) }}
-                    </a>
+                    <p>{{ $post->content }}</p>
+                    <small>por {{ $post->user->name }}</small>
                 </li>
             @endforeach
         </ul>
-
-        @can('create-post', $topic)
-            <a href="{{ route('posts.create', $topic) }}" class="btn btn-primary">Agregar post</a>
-        @endcan
     </div>
 @endsection
