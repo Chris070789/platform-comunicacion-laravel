@@ -33,6 +33,7 @@ class AppServiceProvider extends ServiceProvider
         Workshop::class => WorkshopPolicy::class,
         \App\Models\Stage::class => \App\Policies\StagePolicy::class,
         \App\Models\Forum::class => \App\Policies\ForumPolicy::class,
+        \App\Models\Portfolio::class => \App\Policies\PortfolioPolicy::class,
     ];
 
 

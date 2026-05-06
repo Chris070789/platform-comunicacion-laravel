@@ -21,6 +21,7 @@ use App\Http\Controllers\TopicController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ChatGroupController;
 use App\Http\Controllers\ChatMessageController;
+use App\Http\Controllers\PortfolioController;
 
 Route::get('/', function () {
     // return view('welcome');
@@ -196,6 +197,8 @@ Route::resource('chat-groups', ChatGroupController::class)
 // Mensajes dentro de un chat
 Route::resource('chat-groups.messages', ChatMessageController::class);
 
+// routes/web.php
+Route::resource('portfolios', PortfolioController::class)->middleware('auth');
 
 
 require __DIR__ . '/auth.php';
