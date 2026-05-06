@@ -64,6 +64,11 @@
                             </x-nav-link>
                         @endif
                     @endrole
+                    @role('alumno')
+                        <x-nav-link :href="route('portfolios.index')" :active="request()->routeIs('portfolios.*')">
+                            {{ __('Gestionar Portafolios') }}
+                        </x-nav-link>
+                    @endrole
                 </div>
             </div>
 
