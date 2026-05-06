@@ -56,6 +56,8 @@ class PostController extends Controller
      */
     public function show(Topic $topic, Post $post)
     {
+        // Cargamos los posts con sus usuarios paginados
+        $posts = $topic->posts()->with('user')->paginate(15);
         return view('topics.posts.show', compact('topic', 'post'));
     }
 
