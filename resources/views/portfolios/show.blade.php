@@ -110,6 +110,21 @@
                 transform: translateY(0);
             }
         }
+
+        .btn-action-outline {
+            background: transparent;
+            border: 2px solid;
+            border-image: linear-gradient(45deg, #f093fb 0%, #f5576c 100%) 1;
+            color: #f5576c;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-action-outline:hover {
+            background: linear-gradient(45deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border: 2px solid transparent;
+        }
     </style>
 
     <div class="container py-5">
@@ -119,7 +134,7 @@
                 {{-- Cabecera de Navegación --}}
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <a href="{{ route('portfolios.index') }}" class="btn btn-action-outline btn-outline-secondary">
-                        <i class="fas fa-chevron-left me-2"></i> Listado
+                        <i class="fas fa-chevron-left me-2"></i> Listado de Portafolios
                     </a>
 
                     @can('update', $portfolio)

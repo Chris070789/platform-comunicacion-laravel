@@ -96,7 +96,7 @@
     }
 </style>
 
-<div class="container py-5">
+<div class="container mx-auto px-4 py-8 max-w-5xl">
     <div class="row justify-content-center">
         <div class="col-md-8 animate-up">
 

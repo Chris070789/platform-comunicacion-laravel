@@ -112,7 +112,7 @@
         }
     </style>
 
-    <div class="container py-5">
+    <div class="container py-5 mx-auto px-4 py-8 max-w-5xl">
         <div class="row justify-content-center">
             <div class="col-lg-8 animate-in">
 

@@ -83,25 +83,57 @@
         [data-bs-theme="dark"] .display-6 {
             color: #ffffff !important;
         }
+
+        .custom-breadcrumb .breadcrumb-item+.breadcrumb-item::before {
+            content: "›";
+            /* Un separador más elegante */
+            font-size: 1.2rem;
+            vertical-align: middle;
+            color: #6c757d;
+        }
+
+        .breadcrumb-pill {
+            padding: 0.4rem 0.8rem;
+            border-radius: 50px;
+            background-color: #f8f9fa;
+            color: #495057;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .breadcrumb-pill:hover {
+            background-color: #e9ecef;
+            color: #0d6efd;
+            transform: translateY(-1px);
+        }
+
+        .breadcrumb-pill.active {
+            background-color: #e7f1ff;
+            color: #0d6efd;
+            font-weight: 600;
+        }
     </style>
-    <div class="container py-5">
+    <div class="container py-5 max-w-5xl mx-auto">
         <!-- Navegación jerárquica dentro de una Card -->
-        <div class="flex justify-between items-center mb-8">
+        <div
+            class="px-6 py-2 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/50">
             <div class="card-body py-2 px-3">
                 <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb mb-0 align-items-center">
+                    <ol class="breadcrumb mb-0 align-items-center custom-breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="{{ route('forums.index') }}" class="text-decoration-none d-flex align-items-center ">
-                                <i class="bi bi-house-door-fill me-2"></i> Foros
+                            <a href="{{ route('forums.index') }}" class="breadcrumb-pill">
+                                <i class="bi bi-house-door-fill me-1"></i> Foros
                             </a>
                         </li>
                         <li class="breadcrumb-item">
-                            <a href="{{ route('forums.show', $forum) }}" class="text-decoration-none">
+                            <a href="{{ route('forums.show', $forum) }}" class="breadcrumb-pill">
                                 {{ $forum->title }}
                             </a>
                         </li>
-                        <li class="breadcrumb-item active fw-bold text-primary" aria-current="page">
-                            {{ $topic->title }}
+                        <li class="breadcrumb-item active" aria-current="page">
+                            <span class="breadcrumb-pill active">{{ $topic->title }}</span>
                         </li>
                     </ol>
                 </nav>
@@ -111,7 +143,8 @@
         <div class="row">
             <div class="col-lg-10 mx-auto">
                 <!-- Encabezado del Tema -->
-                <div class="d-flex justify-content-between align-items-end mb-4">
+                <div
+                    class="px-6 py-2 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/50">
                     <div>
                         <h1 class="display-6 fw-bold text-dark mb-1">{{ $topic->title }}</h1>
                         <p class="text-muted mb-0">Discusión iniciada en <span
