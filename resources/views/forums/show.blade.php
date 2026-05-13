@@ -4,7 +4,8 @@
     <div class="container mx-auto px-4 py-8 max-w-5xl">
 
         {{-- Navegación (Breadcrumbs) --}}
-        <nav class="flex mb-6 text-sm text-gray-500 dark:text-gray-400">
+        <nav  class="px-6 py-2 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/50">
+
             <a href="{{ route('forums.index') }}" class="hover:text-blue-600 transition">Foros</a>
             <span class="mx-2">/</span>
             <span class="font-semibold text-gray-800 dark:text-gray-200">{{ $forum->title }}</span>
@@ -13,7 +14,7 @@
         {{-- Encabezado del Foro - Versión Dark Modern --}}
         <div
             class="bg-gradient-to-r from-violet-600 to-fuchsia-700 rounded-3xl p-8 mb-8 dark:text-white shadow-xl border border-gray-700">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+            <div  class="px-6 py-2 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/50">
                 <div class="max-w-2xl">
                     <h1 class="text-4xl font-black mb-2 tracking-tight dark:text-white">
                         {{ $forum->title }}
@@ -40,8 +41,8 @@
         {{-- Listado de Temas --}}
         <div
             class="bg-white dark:bg-gray-800 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
-            <div class="p-6 border-b border-gray-100 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/50">
-                <h3 class="text-xl font-bold text-gray-800 dark:text-white">Temas en discusión</h3>
+            <div md:col-span-2 bg-white dark:bg-gray-800 p-6 rounded-lg shadow border-gray-200 dark:border-gray-700">
+                <h3 class="text-xl bg-white dark:bg-gray-800 p-6 rounded-lg shadow border border-gray-200 dark:border-gray-700">Temas en discusión</h3>
             </div>
 
             <div class="divide-y divide-gray-100 dark:divide-gray-700">
