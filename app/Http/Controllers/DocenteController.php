@@ -25,4 +25,11 @@ class DocenteController extends Controller
 
         return view('docente.alumnos', compact('cursos', 'alumnos'));
     }
+
+    public function verProgresoAlumno(Stage $stage, User $alumno)
+    {
+        $progress = $stage->getProgressForUser($alumno->id);
+
+        return view('docente.reporte', compact('stage', 'progress'));
+    }
 }

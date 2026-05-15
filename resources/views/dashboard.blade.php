@@ -104,250 +104,271 @@
 
                 {{-- ALUMNO --}}
                 @role('alumno')
-                    <!-- COLUMNA IZQUIERDA: ACCIONES Y ETAPAS (2/3 del ancho) -->
-                    <div class="lg:col-span-2 space-y-8  ">
+                    <div class="col-span-1 md:col-span-1 lg:col-span-2 space-y-6 md:space-y-8">
 
                         {{-- Botones de Acción Rápida --}}
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
                             <a href="{{ route('alumno.cursos.index') }}"
-                                class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-purple-700 to-indigo-800 p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-                                <div class="relative z-10 flex items-center space-x-4">
-                                    <div class="p-3 bg-white/20 rounded-lg text-white">
-                                        <i class="bi bi-journal-bookmark-fill text-2xl"></i>
-                                    </div>
+                                class="group relative overflow-hidden rounded-3xl bg-gradient-to-br from-indigo-600 via-purple-700 to-purple-800 p-1 shadow-md hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
+
+                                <div
+                                    class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                                </div>
+
+                                <div
+                                    class="relative z-10 flex items-center space-x-5 bg-indigo-900/10 backdrop-blur-sm rounded-[calc(1.5rem-1px)] p-6">
                                     <div>
-                                        <h3 class="text-xl font-bold text-white">Mis cursos</h3>
-                                        <p class="text-xs text-purple-100 opacity-80">Cursos en los que estás inscrito</p>
+                                        <h3 class="text-xl font-extrabold text-white tracking-tight">Mis cursos</h3>
+                                        <p class="text-sm text-purple-100/80 leading-tight">Gestiona tus clases y material de
+                                            estudio</p>
                                     </div>
                                 </div>
+
                                 <i
-                                    class="bi bi-journal-bookmark-fill absolute -right-4 -bottom-4 text-7xl text-white opacity-10"></i>
+                                    class="bi bi-journal-bookmark-fill absolute -right-6 -bottom-6 text-8xl text-white opacity-5 group-hover:opacity-10 group-hover:-rotate-12 transition-all duration-700"></i>
                             </a>
 
                             <a href="{{ route('alumno.biblioteca.index') }}"
-                                class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-purple-700 to-indigo-800 p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-                                <div class="relative z-10 flex items-center space-x-4">
-                                    <div class="p-3 bg-white/20 rounded-lg text-white">
-                                        <i class="bi bi-collection-play-fill text-2xl"></i>
-                                    </div>
+                                class="group relative overflow-hidden rounded-3xl bg-gradient-to-br from-indigo-600 via-purple-700 to-purple-800 p-1 shadow-md hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
+
+                                <div
+                                    class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                                </div>
+
+                                <div
+                                    class="relative z-10 flex items-center space-x-5 bg-purple-900/10 backdrop-blur-sm rounded-[calc(1.5rem-1px)] p-6">
                                     <div>
-                                        <h3 class="text-xl font-bold text-white">Biblioteca</h3>
-                                        <p class="text-xs text-purple-100 opacity-80">Videos, podcasts y más</p>
+                                        <h3 class="text-xl font-extrabold text-white tracking-tight">Biblioteca</h3>
+                                        <p class="text-sm text-purple-100/80 leading-tight">Explora recursos multimedia y guías
+                                        </p>
                                     </div>
                                 </div>
-                                <i
-                                    class="bi bi-collection-play-fill absolute -right-4 -bottom-4 text-7xl text-white opacity-10"></i>
-                            </a>
-                        </div>
 
-                        {{-- Listado de Etapas --}}
-                        <div>
-                            <h3 class="text-xl font-bold mb-4 flex items-center">
-                                <i class="bi bi-signpost-split mr-2 text-indigo-500"></i> Mi Camino de Aprendizaje
-                            </h3>
-                            <div class="grid gap-4">
-                                @foreach ($stages as $stage)
-                                    <div
-                                        class="bg-white dark:bg-gray-800 p-5 rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm flex items-center justify-between group hover:border-indigo-400 transition-all">
-                                        <div>
-                                            <h4 class="font-bold text-gray-800 dark:text-gray-100">{{ $stage->name }}</h4>
-                                            <p class="text-sm text-gray-500 line-clamp-1">{{ $stage->description }}</p>
-                                        </div>
-                                        <a href="{{ route('dashboard.stage', $stage->id) }}"
-                                            class="p-2 bg-indigo-50 text-indigo-600 rounded-lg group-hover:bg-indigo-600 group-hover:text-white transition-colors">
-                                            <i class="bi bi-arrow-right"></i>
-                                        </a>
-                                    </div>
-                                @endforeach
-                            </div>
+                                <i
+                                    class="bi bi-collection-play-fill absolute -right-6 -bottom-6 text-8xl text-white opacity-5 group-hover:opacity-10 group-hover:-rotate-12 transition-all duration-700"></i>
+                            </a>
+
                         </div>
                     </div>
-
-                    <!-- COLUMNA DERECHA: PROGRESO Y LOGROS (1/3 del ancho) -->
-                    <div class="space-y-8">
-                        {{-- Card de Progreso con Chart --}}
-                        <div
-                            class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 text-center">
-                            <h3 class="text-lg font-bold mb-4 text-gray-700 dark:text-gray-300">Progreso Global</h3>
-                            <div class="relative inline-block w-40 h-40">
-                                <canvas id="progressChart"></canvas>
-                                <div class="absolute inset-0 flex flex-col items-center justify-center">
-                                    <span class="text-3xl font-black text-indigo-600">{{ round($progress) }}%</span>
-                                    <span class="text-[10px] uppercase tracking-wider text-gray-400">Completado</span>
+                    {{-- Listado de Etapas --}}
+                    <div>
+                        <h3 class="text-xl font-bold mb-4 flex items-center">
+                            <i class="bi bi-signpost-split mr-2 text-indigo-500"></i> Mi Camino de Aprendizaje
+                        </h3>
+                        <div class="grid gap-4">
+                            @foreach ($stages as $stage)
+                                <div
+                                    class="bg-white dark:bg-gray-800 p-5 rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm flex items-center justify-between group hover:border-indigo-400 transition-all">
+                                    <div>
+                                        <h4 class="font-bold text-gray-800 dark:text-gray-100">{{ $stage->name }}</h4>
+                                        <p class="text-sm text-gray-500 line-clamp-1">{{ $stage->description }}</p>
+                                    </div>
+                                    <a href="{{ route('dashboard.stage', $stage->id) }}"
+                                        class="p-2 bg-indigo-50 text-indigo-600 rounded-lg group-hover:bg-indigo-600 group-hover:text-white transition-colors">
+                                        <i class="bi bi-arrow-right"></i>
+                                    </a>
                                 </div>
-                            </div>
-                            <p class="mt-4 text-sm text-gray-500 font-medium">
-                                {{ $completedStages }} de {{ $totalStages }} etapas superadas
-                            </p>
+                            @endforeach
                         </div>
+                    </div>
+                </div>
 
-                        {{-- Card de Logros --}}
-                            <div
-                                class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
-                                <h5 class="font-bold mb-6 flex items-center justify-center text-gray-800 dark:text-white">
-                                    <i class="bi bi-star-fill text-yellow-500 mr-2"></i> Mis Logros
-                                </h5>
-                                <div class="flex flex-wrap justify-center gap-4">
-                                    <div class="badge-container text-center group">
-                                        <div class="badge-icon badge-gold group-hover:scale-110">
-                                            <i class="bi bi-trophy-fill"></i>
-                                        </div>
-                                        <span class="badge-label">Top Alumno</span>
-                                    </div>
-
-                                    <div class="badge-container text-center group">
-                                        <div class="badge-icon badge-purple group-hover:scale-110">
-                                            <i class="bi bi-chat-quote-fill"></i>
-                                        </div>
-                                        <span class="badge-label">Participativo</span>
-                                    </div>
-
-                                    <div class="badge-container text-center opacity-30 grayscale group">
-                                        <div class="badge-icon badge-locked">
-                                            <i class="bi bi-lock-fill"></i>
-                                        </div>
-                                        <span class="badge-label">Invencible</span>
-                                    </div>
-                                </div>
+                <!-- COLUMNA DERECHA: PROGRESO Y LOGROS (1/3 del ancho) -->
+                <div class="space-y-8">
+                    {{-- Card de Progreso con Chart --}}
+                    <div
+                        class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 text-center">
+                        <h3 class="text-lg font-bold mb-4 text-gray-700 dark:text-gray-300">Progreso Global</h3>
+                        <div class="relative inline-block w-40 h-40">
+                            <canvas id="progressChart"></canvas>
+                            <div class="absolute inset-0 flex flex-col items-center justify-center">
+                                <span class="text-3xl font-black text-indigo-600">{{ round($progress) }}%</span>
+                                <span class="text-[10px] uppercase tracking-wider text-gray-400">Completado</span>
                             </div>
                         </div>
-                    @endrole
+                        <p class="mt-4 text-sm text-gray-500 font-medium">
+                            {{ $completedStages }} de {{ $totalStages }} etapas superadas
+                        </p>
+                    </div>
 
-                    {{-- DOCENTE --}}
-                    @role('docente')
-                        <a href="{{ route('docente.cursos') }}"
-                            class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-purple-700 to-indigo-800
+                    {{-- Card de Logros --}}
+                    <div
+                        class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
+                        <h5 class="font-bold mb-6 flex items-center justify-center text-gray-800 dark:text-white">
+                            <i class="bi bi-star-fill text-yellow-500 mr-2"></i> Mis Logros
+                        </h5>
+                        <div class="flex flex-wrap justify-center gap-4">
+                            <!-- Insignia: "Invencible" (Se desbloquea al completar todo) -->
+                            <div
+                                class="badge-container text-center group {{ $completedStages == $totalStages ? '' : 'opacity-30 grayscale' }}">
+                                <div class="badge-icon {{ $completedStages == $totalStages ? 'badge-gold' : 'badge-locked' }}">
+                                    @if ($completedStages == $totalStages)
+                                        <i class="bi bi-trophy-fill"></i> {{-- Icono de trofeo cuando termina --}}
+                                    @else
+                                        <i class="bi bi-lock-fill"></i> {{-- Icono de candado mientras está bloqueado --}}
+                                    @endif
+                                </div>
+                                <span class="badge-label">
+                                    {{ $completedStages == $totalStages ? '¡Curso Completado!' : 'Finaliza el curso' }}
+                                </span>
+                            </div>
+
+                            <!-- Ejemplo de otra insignia por progreso (ej: más de la mitad) -->
+                            <div
+                                class="badge-container text-center group {{ $completedStages >= $totalStages / 2 ? '' : 'opacity-30 grayscale' }}">
+                                <div
+                                    class="badge-icon {{ $completedStages >= $totalStages / 2 ? 'badge-purple' : 'badge-locked' }}">
+                                    <i class="bi bi-star-half"></i>
+                                </div>
+                                <span
+                                    class="badge-label">{{ $completedStages >= $totalStages / 2 ? '¡Buen Trabajo!' : 'Finaliza el curso' }}</span>
+                            </div>
+                            @if ($completedStages == $totalStages && $totalStages > 0)
+                                <div class="mt-4 p-3 bg-green-100 text-green-700 rounded-lg text-xs font-bold animate-bounce">
+                                    ¡Increíble! Has completado todos los ejercicios, felicidades!!. 🏆
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            @endrole
+
+            {{-- DOCENTE --}}
+            @role('docente')
+                <a href="{{ route('docente.cursos') }}"
+                    class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-purple-700 to-indigo-800
           p-6 shadow-lg hover:shadow-xl hover:shadow-purple-500/30
           transform hover:-translate-y-1 transition-all duration-300">
-                            <div
-                                class="px-6 py-2 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/50">
-                                <i class="bi bi-plus-circle mr-2"></i>
-                                <div>
-                                    <h3 class="text-xl font-bold text-white">Cursos que imparto</h3>
-                                    <p class="text-sm text-gray-400">Gestiona tus asignaturas</p>
-                                </div>
-                            </div>
-                        </a>
+                    <div
+                        class="px-6 py-2 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/50">
+                        <i class="bi bi-plus-circle mr-2"></i>
+                        <div>
+                            <h3 class="text-xl font-bold text-white">Cursos que imparto</h3>
+                            <p class="text-sm text-gray-400">Gestiona tus asignaturas</p>
+                        </div>
+                    </div>
+                </a>
 
-                        <a href="{{ route('docente.alumnos') }}"
-                            class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-purple-700 to-indigo-800
+                <a href="{{ route('docente.alumnos') }}"
+                    class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-purple-700 to-indigo-800
           p-6 shadow-lg hover:shadow-xl hover:shadow-purple-500/30
           transform hover:-translate-y-1 transition-all duration-300">
-                            <div
-                                class="px-6 py-2 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/50">
-                                <i class="bi bi-plus-circle mr-2"></i>
-                                <div>
-                                    <h3 class="text-xl font-bold text-white">Listado de alumnos</h3>
-                                    <p class="text-sm text-gray-400">Visualiza alumnos por curso</p>
-                                </div>
-                            </div>
-                        </a>
+                    <div
+                        class="px-6 py-2 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/50">
+                        <i class="bi bi-plus-circle mr-2"></i>
+                        <div>
+                            <h3 class="text-xl font-bold text-white">Listado de alumnos</h3>
+                            <p class="text-sm text-gray-400">Visualiza alumnos por curso</p>
+                        </div>
+                    </div>
+                </a>
 
-                        {{-- Big CTA --}}
-                        <a href="{{ route('docente.curso.gestion') }}"
-                            class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-purple-700 to-indigo-800
+                {{-- Big CTA --}}
+                <a href="{{ route('docente.curso.gestion') }}"
+                    class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-purple-700 to-indigo-800
           p-6 shadow-lg hover:shadow-xl hover:shadow-purple-500/30
           transform hover:-translate-y-1 transition-all duration-300">
-                            <div
-                                class="px-6 py-2 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/50">
-                                <i class="bi bi-plus-circle mr-2"></i>
-                                <div>
-                                    <h3 class="text-xl font-bold text-white">Gestionar mi curso</h3>
-                                    {{-- Subtítulo descriptivo --}}
-                                    <p class="text-sm text-gray-300 mt-1">Accede a unidades, temas y cronograma</p>
-                                </div>
-                            </div>
-                        </a>
+                    <div
+                        class="px-6 py-2 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/50">
+                        <i class="bi bi-plus-circle mr-2"></i>
+                        <div>
+                            <h3 class="text-xl font-bold text-white">Gestionar mi curso</h3>
+                            {{-- Subtítulo descriptivo --}}
+                            <p class="text-sm text-gray-300 mt-1">Accede a unidades, temas y cronograma</p>
+                        </div>
+                    </div>
+                </a>
 
-                        <a href="{{ route('docente.biblioteca.index') }}"
-                            class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-purple-700 to-indigo-800
+                <a href="{{ route('docente.biblioteca.index') }}"
+                    class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-purple-700 to-indigo-800
           p-6 shadow-lg hover:shadow-xl hover:shadow-purple-500/30
           transform hover:-translate-y-1 transition-all duration-300">
-                            <div
-                                class="px-6 py-2 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/50">
-                                <i class="bi bi-plus-circle mr-2"></i>
-                                <div>
-                                    <h3 class="text-xl font-bold text-white">Biblioteca</h3>
-                                    <p class="text-sm text-gray-300">Compartí videos, podcasts, infografías y más</p>
-                                </div>
-                            </div>
-                        </a>
+                    <div
+                        class="px-6 py-2 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/50">
+                        <i class="bi bi-plus-circle mr-2"></i>
+                        <div>
+                            <h3 class="text-xl font-bold text-white">Biblioteca</h3>
+                            <p class="text-sm text-gray-300">Compartí videos, podcasts, infografías y más</p>
+                        </div>
+                    </div>
+                </a>
 
-                        {{-- Mis Talleres --}}
-                        <a href="{{ route('docente.taller.index') }}"
-                            class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-700 to-teal-800
+                {{-- Mis Talleres --}}
+                <a href="{{ route('docente.taller.index') }}"
+                    class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-700 to-teal-800
           p-6 shadow-lg hover:shadow-xl hover:shadow-emerald-500/30
           transform hover:-translate-y-1 transition-all duration-300">
-                            <div
-                                class="px-6 py-2 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/50">
-                                <i class="bi bi-plus-circle mr-2"></i>
-                                <div>
-                                    <h3 class="text-xl font-bold text-white">Mis Talleres</h3>
-                                    <p class="text-sm text-gray-300">Crea y gestiona ejercicios para tus alumnos</p>
-                                </div>
-                            </div>
-                        </a>
-                    @endrole
+                    <div
+                        class="px-6 py-2 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/50">
+                        <i class="bi bi-plus-circle mr-2"></i>
+                        <div>
+                            <h3 class="text-xl font-bold text-white">Mis Talleres</h3>
+                            <p class="text-sm text-gray-300">Crea y gestiona ejercicios para tus alumnos</p>
+                        </div>
+                    </div>
+                </a>
+            @endrole
 
-                    {{-- ADMIN --}}
-                    @role('admin')
-                        <a href="{{ route('admin.usuarios') }}"
-                            class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-purple-700 to-indigo-800
+            {{-- ADMIN --}}
+            @role('admin')
+                <a href="{{ route('admin.usuarios') }}"
+                    class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-purple-700 to-indigo-800
           p-6 shadow-lg hover:shadow-xl hover:shadow-purple-500/30
           transform hover:-translate-y-1 transition-all duration-300">
-                            <div
-                                class="px-6 py-2 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/50">
-                                <i class="bi bi-plus-circle mr-2"></i>
-                                <div>
-                                    <h3 class="text-lg font-bold  dark:text-white">Administrar usuarios</h3>
-                                    <p class="text-sm text-purple-100 mt-1">Crear, editar y asignar roles</p>
-                                </div>
-                            </div>
-                        </a>
+                    <div
+                        class="px-6 py-2 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/50">
+                        <i class="bi bi-plus-circle mr-2"></i>
+                        <div>
+                            <h3 class="text-lg font-bold  dark:text-white">Administrar usuarios</h3>
+                            <p class="text-sm text-purple-100 mt-1">Crear, editar y asignar roles</p>
+                        </div>
+                    </div>
+                </a>
 
-                        <a href="{{ route('admin.cursos.index') }}"
-                            class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-purple-700 to-indigo-800
+                <a href="{{ route('admin.cursos.index') }}"
+                    class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-purple-700 to-indigo-800
           p-6 shadow-lg hover:shadow-xl hover:shadow-purple-500/30
           transform hover:-translate-y-1 transition-all duration-300">
-                            <div
-                                class="px-6 py-2 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/50">
-                                <i class="bi bi-plus-circle mr-2"></i>
-                                <div>
-                                    <h3 class="text-lg font-bold text-white">Administrar cursos</h3>
-                                    <p class="text-sm text-cyan-100 mt-1">Unidades, temarios y profesores</p>
-                                </div>
-                            </div>
-                        </a>
-                    @endrole
+                    <div
+                        class="px-6 py-2 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/50">
+                        <i class="bi bi-plus-circle mr-2"></i>
+                        <div>
+                            <h3 class="text-lg font-bold text-white">Administrar cursos</h3>
+                            <p class="text-sm text-cyan-100 mt-1">Unidades, temarios y profesores</p>
+                        </div>
+                    </div>
+                </a>
+            @endrole
 
-                </div>
-            </div>
-            <script>
-                // Aquí podrías agregar JavaScript para animar la barra de progreso o el porcentajeconst total = {{ $totalStages }};
-                const answered = {{ $completedStages }};
-                let chart;
+        </div>
+    </div>
+    <script>
+        // Aquí podrías agregar JavaScript para animar la barra de progreso o el porcentajeconst total = {{ $totalStages }};
+        const answered = {{ $completedStages }};
+        let chart;
 
-                document.addEventListener('DOMContentLoaded', function() {
-                    const ctx = document.getElementById('progressChart').getContext('2d');
-                    chart = new Chart(ctx, {
-                        type: 'doughnut',
-                        data: {
-                            datasets: [{
-                                data: [answered, total - answered],
-                                backgroundColor: ['#6366f1', '#e5e7eb'],
-                                borderWidth: 0,
-                                cutout: '85%'
-                            }]
-                        },
-                        options: {
-                            responsive: true,
-                            plugins: {
-                                tooltip: {
-                                    enabled: false
-                                }
-                            }
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('progressChart').getContext('2d');
+            chart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    datasets: [{
+                        data: [answered, total - answered],
+                        backgroundColor: ['#6366f1', '#e5e7eb'],
+                        borderWidth: 0,
+                        cutout: '85%'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        tooltip: {
+                            enabled: false
                         }
-                    });
-                });
-            </script>
-        @endsection
+                    }
+                }
+            });
+        });
+    </script>
+@endsection

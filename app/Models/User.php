@@ -133,4 +133,23 @@ class User extends Authenticatable
     {
         return $this->hasMany(ChatGroup::class); // si es docente creador
     }
+    // app/Models/User.php
+
+    /**
+     * Calcula el progreso de este usuario para una etapa específica.
+     */
+    public function getProgressInStage($stageId)
+    {
+        $stage = \App\Models\Stage::find($stageId);
+        if (!$stage) return 0;
+
+        $total = $stage->questions()->count();
+        if ($total === 0) return 0;
+
+        $answered = \App\Models\StageUserAnswer::where('user_id', $this->id)
+            ->where('stage_id', $stageId)
+            ->count();
+
+        return round(($answered / $total) * 100);
+    }
 }

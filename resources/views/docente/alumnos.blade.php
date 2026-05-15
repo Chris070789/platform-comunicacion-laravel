@@ -15,7 +15,10 @@
                         @else
                             <ul class="list-disc pl-5">
                                 @foreach ($alumnos as $alumno)
-                                    <li>{{ $alumno->name }} ({{ $alumno->email }})</li>
+                                    <li>
+                                        {{ $alumno->name }} ({{ $alumno->email }})
+                                       <p>Progreso: {{ $alumno->getProgressInStage(1) }}%</p>
+                                    </li>
                                 @endforeach
                             </ul>
                         @endif
