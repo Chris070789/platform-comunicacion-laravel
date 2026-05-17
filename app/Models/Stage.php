@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Filament\Forms\Components\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 class Stage extends Model
@@ -36,7 +37,7 @@ class Stage extends Model
         return $this->hasMany(Option::class);
     }
 
-    public function scopeOrdered($query)
+    public function scopeOrdered(Builder $query)
     {
         return $query->orderBy('position');
     }
@@ -47,7 +48,7 @@ class Stage extends Model
             ->withPivot('completed');
     }
 
-     /**
+    /**
      * Define los casts para los atributos del modelo.
      * @return array<string, string>
      */
@@ -58,5 +59,16 @@ class Stage extends Model
             'max_points' => 'integer',
         ];
     }
+    public function getProgressForUser(int $userId)
+    {
+        $totalQuestions = $this->questions()->count();
 
+        if ($totalQuestions === 0) return 0;
+
+        $answeredQuestions = \App\Models\StageUserAnswer::where('user_id', $userId)
+            ->where('stage_id', $this->id)
+            ->count();
+
+        return round(($answeredQuestions / $totalQuestions) * 100);
+    }
 }
