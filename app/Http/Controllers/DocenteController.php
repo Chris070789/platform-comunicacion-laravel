@@ -6,6 +6,8 @@ use App\Models\Workshop;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Stage;
+use App\Models\User;
 
 class DocenteController extends Controller
 {
@@ -28,6 +30,7 @@ class DocenteController extends Controller
 
     public function verProgresoAlumno(Stage $stage, User $alumno)
     {
+
         $progress = $stage->getProgressForUser($alumno->id);
 
         return view('docente.reporte', compact('stage', 'progress'));
