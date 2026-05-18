@@ -85,21 +85,52 @@
     </style>
     <div class="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
 
-        {{-- HERO BANNER --}}
-        <div class="bg-gradient-to-br from-indigo-600 to-purple-700 px-6 py-12">
-            <div class="max-w-5xl mx-auto text-center">
-                <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight">
-                    Bienvenido, {{ Auth::user()->name }}
+        {{-- HERO BANNER INFANTIL Y ANIMADO --}}
+        <div
+            class="relative overflow-hidden bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 px-6 py-12 rounded-b-[2rem] shadow-lg dark:from-indigo-950 dark:via-purple-900 dark:to-pink-950">
+
+            {{-- Burbujas decorativas de fondo para dar textura de juego --}}
+            <div class="absolute -top-10 -left-10 w-40 h-40 bg-white/10 rounded-full blur-xl pointer-events-none"></div>
+            <div
+                class="absolute -bottom-10 right-10 w-32 h-32 bg-pink-400/20 rounded-full blur-lg pointer-events-none animate-pulse">
+            </div>
+
+            <div class="max-w-5xl mx-auto flex flex-col items-center text-center relative z-10">
+
+                {{-- Contenedor del Logo con animación de flotado y fondo brillante --}}
+                <div class="relative mb-4 group">
+                    <div
+                        class="absolute inset-0 bg-white/20 rounded-full blur-md group-hover:blur-xl transition-all duration-300">
+                    </div>
+                    <img src="{{ asset('images/chacharaLetraIco.ico') }}"
+                        class="relative w-28 h-28 object-contain transform hover:scale-110 transition-transform duration-300 drop-shadow-[0_5px_15px_rgba(255,255,255,0.3)]">
+                </div>
+
+                {{-- Título principal amigable --}}
+                <h1 class="text-4xl md:text-5xl font-black text-white tracking-wide drop-shadow-sm">
+                    ¡Hola, {{ explode(' ', Auth::user()->name)[0] }}! 👋✨
                 </h1>
-                <p class="mt-2 text-lg opacity-90">
-                    Panel de <span
-                        class="px-2 py-0.5 rounded-full bg-white/20">{{ ucfirst(Auth::user()->roles->first()->name) }}</span>
+
+                {{-- Rol o Info adaptada con estilo "Badge de videojuego" --}}
+                <p class="mt-4 text-lg md:text-xl font-medium text-purple-100 flex items-center gap-2">
+                    Estás en el espacio de:
+                    <span
+                        class="px-4 py-1 rounded-full bg-yellow-400 text-purple-950 font-bold text-sm uppercase tracking-wider shadow-md transform -rotate-1 hover:rotate-0 transition-transform duration-200">
+                        🚀 {{ ucfirst(Auth::user()->roles->first()->name ?? 'Invitado') }}
+                    </span>
                 </p>
+
+                {{-- Pequeña frase de motivación para los niños --}}
+                <p class="mt-2 text-sm text-indigo-100/80 italic">
+                    ¡Hoy es un gran día para llenar el mundo de palabras divertidas! 🎈
+                </p>
+
             </div>
         </div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
             {{-- ALUMNO --}}
             @role('alumno')
+                <img src="{{ asset('images/chacharaMensaje.png') }}" class="w-24 h-24 object-contain">
                 {{-- COLUMNA IZQUIERDA: ACCIONES Y CAMINO (2/3 del ancho en pantallas grandes) --}}
                 <div class="md:col-span-2 space-y-8">
                     {{-- Tarjeta 1: Mis Cursos --}}
@@ -247,7 +278,7 @@
                                     @endif
                                 </div>
                                 <span class="badge-label mt-2 block text-xs font-semibold">
-                                    {{ $completedStages == $totalStages ? '¡Curso Completado!' : 'Finaliza el curso' }}
+                                    {{ $completedStages == $totalStages ? '¡Tarea Completada!' : 'Finaliza la tarea' }}
                                 </span>
                             </div>
 
@@ -281,11 +312,11 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
                     {{-- Botón 1: Cursos --}}
                     <a href="{{ route('docente.cursos') }}"
-                        class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-purple-700 to-indigo-800
-          p-6 shadow-lg hover:shadow-xl hover:shadow-purple-500/30
-          transform hover:-translate-y-1 transition-all duration-300">
+                        class="group relative inline-block overflow-hidden rounded-2xl bg-gradient-to-br from-purple-700 to-indigo-800
+            p-6 shadow-lg hover:shadow-xl hover:shadow-purple-500/30
+            transform hover:-translate-y-1 transition-all duration-300 w-fit">
                         <div <!-- Imagen tipo Icono/Ilustración -->
-                            <img src="{{ asset('images/librosLg.png') }}" alt="Icono Cursos"
+                            <img src="{{ asset('images/cursoIco.ico') }}" alt="Icono Cursos"
                                 class="w-12 h-12 object-contain rounded-lg bg-white/10 p-1 group-hover:rotate-6 transition-transform duration-300">
                             <div>
                                 <h3 class="text-xl font-bold text-white">Cursos que imparto</h3>
@@ -299,7 +330,7 @@
           p-6 shadow-lg hover:shadow-xl hover:shadow-purple-500/30
           transform hover:-translate-y-1 transition-all duration-300">
                         <div <!-- Imagen tipo Icono/Ilustración -->
-                            <img src="{{ asset('images/listaLg.png') }}" alt="Icono Listado de alumnos"
+                            <img src="{{ asset('images/alumnoIco.ico') }}" alt="Icono Listado de alumnos"
                                 class="w-12 h-12 object-contain rounded-lg bg-white/10 p-1 group-hover:rotate-6 transition-transform duration-300">
                             <div>
                                 <h3 class="text-xl font-bold text-white">Listado de alumnos</h3>
@@ -314,7 +345,7 @@
           p-6 shadow-lg hover:shadow-xl hover:shadow-purple-500/30
           transform hover:-translate-y-1 transition-all duration-300">
                         <div <!-- Imagen tipo Icono/Ilustración -->
-                            <img src="{{ asset('images/gestionLg.png') }}" alt="Icono Gestionar curso"
+                            <img src="{{ asset('images/gestionIco.ico') }}" alt="Icono Gestionar curso"
                                 class="w-12 h-12 object-contain rounded-lg bg-white/10 p-1 group-hover:rotate-6 transition-transform duration-300">
                             <div>
                                 <h3 class="text-xl font-bold text-white">Gestionar mi curso</h3>
@@ -329,7 +360,7 @@
           p-6 shadow-lg hover:shadow-xl hover:shadow-purple-500/30
           transform hover:-translate-y-1 transition-all duration-300">
                         <div <!-- Imagen tipo Icono/Ilustración -->
-                            <img src="{{ asset('images/bibliotecaLg.png') }}" alt="Icono Biblioteca"
+                            <img src="{{ asset('images/bibliotecaIco.ico') }}" alt="Icono Biblioteca"
                                 class="w-12 h-12 object-contain rounded-lg bg-white/10 p-1 group-hover:rotate-6 transition-transform duration-300">
                             <div>
                                 <h3 class="text-xl font-bold text-white">Biblioteca</h3>
@@ -344,8 +375,8 @@
           p-6 shadow-lg hover:shadow-xl hover:shadow-emerald-500/30
           transform hover:-translate-y-1 transition-all duration-300">
                         <div <!-- Imagen tipo Icono/Ilustración -->
-                            <img src="{{ asset('images/talleresLg.png') }}" alt="Icono Mis Talleres"
-                                class="w-12 h-12 object-contain rounded-lg bg-white/10 p-1 group-hover:rotate-6 transition-transform duration-300">
+                            <img src="{{ asset('images/talleresIco.ico') }}" alt="Icono Mis Talleres"
+                                class="w-12 h-12 object-contain rounded-lg bg-white/10 p-1 group-hover:rotate-6 transition-transform duration-300 ">
                             <div>
                                 <h3 class="text-xl font-bold text-white">Mis Talleres</h3>
                                 <p class="text-sm text-gray-300">Crea y gestiona ejercicios para tus alumnos</p>
@@ -355,65 +386,68 @@
                 </div>
             @endrole
         </div>
-
-        {{-- ADMIN --}}
-        @role('admin')
-            <a href="{{ route('admin.usuarios') }}"
-                class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-purple-700 to-indigo-800
+        <div class="max-w-7xl mx-auto px-6 py-10 space-y-6">
+            {{-- ADMIN --}}
+            @role('admin')
+                {{-- Tu Grid de 3 columnas ahora sí tendrá el 100% del ancho disponible --}}
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
+                    <a href="{{ route('admin.usuarios') }}"
+                        class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-purple-700 to-indigo-800
           p-6 shadow-lg hover:shadow-xl hover:shadow-purple-500/30
           transform hover:-translate-y-1 transition-all duration-300">
-                <div
-                    class="px-6 py-2 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/50">
-                    <i class="bi bi-plus-circle mr-2"></i>
-                    <div>
-                        <h3 class="text-lg font-bold  dark:text-white">Administrar usuarios</h3>
-                        <p class="text-sm text-purple-100 mt-1">Crear, editar y asignar roles</p>
-                    </div>
-                </div>
-            </a>
+                        <div <!-- Imagen tipo Icono/Ilustración -->
+                            <img src="{{ asset('images/usersLg.ico') }}" alt="Icono Administrar usuarios"
+                                class="w-12 h-12 object-contain rounded-lg bg-white/10 p-1 group-hover:rotate-6 transition-transform duration-300">
+                            <div>
+                                <h3 class="text-lg font-bold  dark:text-white">Administrar usuarios</h3>
+                                <p class="text-sm text-purple-100 mt-1">Crear, editar y asignar roles</p>
+                            </div>
+                        </div>
+                    </a>
 
-            <a href="{{ route('admin.cursos.index') }}"
-                class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-purple-700 to-indigo-800
+                    <a href="{{ route('admin.cursos.index') }}"
+                        class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-purple-700 to-indigo-800
           p-6 shadow-lg hover:shadow-xl hover:shadow-purple-500/30
           transform hover:-translate-y-1 transition-all duration-300">
-                <div
-                    class="px-6 py-2 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/50">
-                    <i class="bi bi-plus-circle mr-2"></i>
-                    <div>
-                        <h3 class="text-lg font-bold text-white">Administrar cursos</h3>
-                        <p class="text-sm text-cyan-100 mt-1">Unidades, temarios y profesores</p>
-                    </div>
+                        <div <!-- Imagen tipo Icono/Ilustración -->
+                            <img src="{{ asset('images/cursosLg.ico') }}" alt="Icono Administrar cursos"
+                                class="w-12 h-12 object-contain rounded-lg bg-white/10 p-1 group-hover:rotate-6 transition-transform duration-300">
+                            <div>
+                                <h3 class="text-lg font-bold text-white">Administrar cursos</h3>
+                                <p class="text-sm text-cyan-100 mt-1">Unidades, temarios y profesores</p>
+                            </div>
+                        </div>
+                    </a>
                 </div>
-            </a>
-        @endrole
-    </div>
+            @endrole
+        </div>
 
-    <script>
-        // Aquí podrías agregar JavaScript para animar la barra de progreso o el porcentajeconst total = {{ $totalStages }};
-        const answered = {{ $completedStages }};
-        let chart;
+        <script>
+            // Aquí podrías agregar JavaScript para animar la barra de progreso o el porcentajeconst total = {{ $totalStages }};
+            const answered = {{ $completedStages }};
+            let chart;
 
-        document.addEventListener('DOMContentLoaded', function() {
-            const ctx = document.getElementById('progressChart').getContext('2d');
-            chart = new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    datasets: [{
-                        data: [answered, total - answered],
-                        backgroundColor: ['#6366f1', '#e5e7eb'],
-                        borderWidth: 0,
-                        cutout: '85%'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        tooltip: {
-                            enabled: false
+            document.addEventListener('DOMContentLoaded', function() {
+                const ctx = document.getElementById('progressChart').getContext('2d');
+                chart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        datasets: [{
+                            data: [answered, total - answered],
+                            backgroundColor: ['#6366f1', '#e5e7eb'],
+                            borderWidth: 0,
+                            cutout: '85%'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            tooltip: {
+                                enabled: false
+                            }
                         }
                     }
-                }
+                });
             });
-        });
-    </script>
-@endsection
+        </script>
+    @endsection

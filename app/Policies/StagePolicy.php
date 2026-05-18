@@ -62,5 +62,10 @@ class StagePolicy
         return $user->hasRole('admin') || $user->id === $stage->user_id;
     }
 
+    public function edit(User $user, Stage $stage): bool
+    {
+        return $user->hasRole('docente') || $user->id === $stage->user_id;
+    }
+
 
 }

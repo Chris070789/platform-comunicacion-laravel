@@ -51,7 +51,7 @@ class StageController extends Controller
             'questions.*.options.*.is_correct'  => 'required|boolean',
         ]);
 
-        DB::Transaction(
+        DB::transaction(
             function () use ($request, $workshop) {
 
                 $lastPosition = $workshop->stages()->max('position') ?? 0;
@@ -104,8 +104,9 @@ class StageController extends Controller
     /* ---------- Editar ejercicio ---------- */
     public function edit(Stage $stage)
     {
-        $this->authorize('update', $stage->workshop);
-        // Cargar preguntas y opciones relacionadas
+        // Cambiamos 'update' y le pasamos $stage directamente
+        $this->authorize('update', $stage);
+
         $stage->load('questions.options');
         return view('docente.stage.edit', compact('stage'));
     }
@@ -113,14 +114,23 @@ class StageController extends Controller
     /* ---------- Actualizar ejercicio ---------- */
     public function update(Request $request, Stage $stage)
     {
+        // 1. Autorización basada en tu WorkshopPolicy (como decidiste dejarlo)
         $this->authorize('update', $stage->workshop);
 
-
+        // 2. Validación (añadimos reglas para preguntas y opciones)
         $request->validate([
-            'name'        => 'required|string|max:255',
-            'description' => 'required|string',
-            'max_points'  => 'required|integer|min:1',
+            'name'                 => 'required|string|max:255',
+            'description'          => 'required|string',
+            'max_points'           => 'required|integer|min:1',
+            'pdf'                  => 'nullable|file|mimes:pdf|max:10240', // Consejo: valida tus archivos
+            'video'                => 'nullable|file|mimes:mp4,mov,avi|max:20480',
+            'questions'            => 'required|array|min:1',
+            'questions.*.content'  => 'required|string',
+            'questions.*.options'  => 'required|array|min:2', // Al menos 2 opciones por pregunta
+            'questions.*.options.*.option_text' => 'required|string',
         ]);
+
+        // 3. Manejo de archivos (PDF y Video)
         if ($request->hasFile('pdf')) {
             $pdfPath = $request->file('pdf')->store('pdfs', 'public');
             $stage->pdf = $pdfPath;
@@ -131,11 +141,39 @@ class StageController extends Controller
             $stage->video = $videoPath;
         }
 
-        $stage->update($request->only('name', 'description', 'max_points'));
+        // 4. Actualizar datos propios del Stage
+        $stage->fill($request->only('name', 'description', 'max_points'));
+        $stage->save();
+
+        // 5. Sincronizar Preguntas y Opciones usando una Transacción de BD
+        // Usamos DB::transaction para que si algo falla, no se borre nada a medias
+        DB::transaction(function () use ($request, $stage) {
+
+            // Eliminamos las preguntas viejas (y por cascada en la BD o manualmente sus opciones)
+            // Si tu migración NO tiene onDelete('cascade'), borra primero las opciones manualmente.
+            foreach ($stage->questions as $oldQuestion) {
+                $oldQuestion->options()->delete(); // Borra opciones viejas
+            }
+            $stage->questions()->delete(); // Borra preguntas viejas
+
+            // Insertamos el nuevo set de preguntas y opciones (igual que en tu store)
+            foreach ($request->questions as $qData) {
+                $question = $stage->questions()->create([
+                    'content' => $qData['content']
+                ]);
+
+                foreach ($qData['options'] as $oData) {
+                    $question->options()->create([
+                        'option_text' => $oData['option_text'],
+                        'is_correct'  => isset($oData['is_correct']) && ($oData['is_correct'] == true || $oData['is_correct'] == '1'),
+                    ]);
+                }
+            }
+        });
 
         return redirect()
             ->route('docente.taller.stages', $stage->workshop)
-            ->with('success', 'Ejercicio actualizado.');
+            ->with('success', 'Ejercicio actualizado con éxito junto a sus preguntas.');
     }
 
     /* ---------- Eliminar ejercicio ---------- */
