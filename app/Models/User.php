@@ -1,0 +1,155 @@
+<?php
+
+namespace App\Models;
+
+// use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use Filament\Panel;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+/**
+ * App\Models\User
+ *
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Spatie\Permission\Models\Role[] $roles
+ * @property-read int|null $roles_count
+ * @method bool hasRole(string|array|\Spatie\Permission\Models\Role $roles)
+ */
+
+class User extends Authenticatable
+{
+    /** @use HasFactory<\Database\Factories\UserFactory> */
+    use HasFactory, Notifiable, HasRoles, SoftDeletes;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var list<string>
+     */
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
+    ];
+
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var list<string>
+     */
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
+        ];
+    }
+
+    public function cursosComoDocente()
+    {
+        return $this->hasMany(Curso::class, 'docente_id');
+    }
+
+    public function cursosComoAlumno()
+    {
+        return $this->belongsToMany(Curso::class, 'alumno_curso')->withTimestamps();
+        return $this->belongsToMany(Curso::class, 'alumno_curso', 'alumno_id', 'curso_id');
+    }
+
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return match ($panel->getId()) {
+            'admin'  => $this->hasRole('admin'),
+            'docente' => $this->hasRole('docente'),
+            'alumno'  => $this->hasRole('alumno'),
+            default  => false,
+        };
+    }
+
+
+
+    public function workshops()
+    {
+        return $this->belongsToMany(Workshop::class, 'workshop_user');
+    }
+
+    public function submissions()
+    {
+        return $this->hasMany(Submission::class);
+    }
+
+    public function docenteWorkshops()
+    {
+        return $this->hasMany(Workshop::class, 'docente_id');
+    }
+
+    public function stageAnswers()
+    {
+        return $this->hasMany(StageUserAnswer::class);
+    }
+
+    public function stages()
+    {
+        // Esta es la relación muchos a muchos
+        return $this->belongsToMany(Stage::class, 'stage_user_answers')
+            ->withPivot('completed') // Traemos la columna de la tabla intermedia
+            ->withTimestamps();
+    }
+
+    public function completedStages()
+    {
+        // Esta es una versión filtrada de la relación anterior
+        return $this->stages()->wherePivot('completed', true);
+    }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
+    public function topics()
+    {
+        return $this->hasMany(Topic::class);
+    }
+    public function chatMessages()
+    {
+        return $this->hasMany(ChatMessage::class);
+    }
+    public function chatGroups()
+    {
+        return $this->hasMany(ChatGroup::class); // si es docente creador
+    }
+    // app/Models/User.php
+
+    /**
+     * Calcula el progreso de este usuario para una etapa específica.
+     */
+    public function getProgressInStage(int $stageId)
+    {
+        $stage = \App\Models\Stage::find($stageId);
+        if (!$stage) return 0;
+
+        $total = $stage->questions()->count();
+        if ($total === 0) return 0;
+
+        $answered = \App\Models\StageUserAnswer::where('user_id', $this->id)
+            ->where('stage_id', $stageId)
+            ->count();
+
+        return round(($answered / $total) * 100);
+    }
+}

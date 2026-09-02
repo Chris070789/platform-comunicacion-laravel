@@ -1,0 +1,39 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Workshop;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Models\Stage;
+use App\Models\User;
+
+class DocenteController extends Controller
+{
+    public function cursos()
+    {
+        // cursos que imparte el docente logueado
+        $cursos = Auth::user()->cursosComoDocente;   // o auth()->user()->cursos;
+        return view('docente.cursos', compact('cursos'));
+    }
+
+    public function alumnos()
+    {
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+        $cursos = $user->cursosComoDocente()->with('alumnos')->get();
+        $alumnos = $cursos->flatMap->alumnos->unique('id');
+        $stages = Stage::all();
+
+        return view('docente.alumnos', compact('cursos', 'alumnos', 'stages'));
+    }
+
+    public function verProgresoAlumno(Stage $stage, User $alumno)
+    {
+
+        $progress = $stage->getProgressForUser($alumno->id);
+
+        return view('docente.reporte', compact('stage','alumno', 'progress'));
+    }
+}

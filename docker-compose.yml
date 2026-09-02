@@ -1,0 +1,44 @@
+version: '4.0'
+
+services:
+
+    laravel-db:
+        image: postgres:17 
+        #ports:
+            #- "54321:5432"
+        volumes:
+            - ./docker-data/postgres:/var/lib/postgresql/data
+        environment:
+            POSTGRES_PASSWORD: Postgre@123
+            POSTGRES_DB: laravel_prod
+            POSTGRES_USER: postgres
+        networks:
+            laravel_prod_net:
+                ipv4_address: 172.30.100.9
+
+    laravel-prod:
+        build:
+            context: ./
+            dockerfile: Dockerfile
+        ports:
+            - "8085:80"        # Equivalente a "0.0.0.0:8080:80"
+            - "5174:5174"
+        volumes:
+            - .:/var/www/html
+            - /var/www/html/public/build 
+        networks:
+            laravel_prod_net:
+                ipv4_address: 172.30.100.10
+        depends_on:
+            - laravel-db
+
+volumes:
+    database:
+
+networks:
+    laravel_prod_net:
+        driver: bridge
+        ipam:
+            driver: default
+            config:
+                - subnet: 172.30.100.0/24
