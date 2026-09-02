@@ -13,11 +13,11 @@
         "@tailwindcss/vite": "^4.0.0",
         "alpinejs": "^3.4.2",
         "autoprefixer": "^10.4.23",
-        "axios": "^1.11.0",
-        "concurrently": "^9.0.1",
-        "laravel-vite-plugin": "^2.0.0",
+        "axios": "^1.18.0",
+        "concurrently": "^9.2.4",
+        "laravel-vite-plugin": "^3.2.0",
         "tailwindcss": "^3.4.13",
-        "vite": "^7.0.7"
+        "vite": "^8.2.2"
     },
     "require": {
         "filament/filament": "^3.0",
