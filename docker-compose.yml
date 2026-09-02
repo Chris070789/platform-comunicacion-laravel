@@ -12,6 +12,7 @@ services:
             POSTGRES_PASSWORD: Postgre@123
             POSTGRES_DB: laravel_prod
             POSTGRES_USER: postgres
+            PGDATA: /var/lib/postgresql/data/pgdata
         networks:
             laravel_prod_net:
                 ipv4_address: 172.30.100.9
