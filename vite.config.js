@@ -15,7 +15,7 @@ export default defineConfig({
         emptyOutDir: true, // limpia antes de compilar
     },
     server: {
-        host: '0.0.0.0', // Esto soluciona el error EADDRNOTAVAIL (escucha en todas partes)
+        host: '0.0.0.0',
         port: 5174,
         strictPort: true,
         cors: true,

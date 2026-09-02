@@ -21,7 +21,7 @@ services:
             context: ./
             dockerfile: Dockerfile
         ports:
-            - "8085:80"        # Equivalente a "0.0.0.0:8080:80"
+            - "8085:80"       
             - "5174:5174"
         volumes:
             - .:/var/www/html
