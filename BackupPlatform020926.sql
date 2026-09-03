@@ -2,7 +2,7 @@
 -- PostgreSQL database dump
 --
 
-\restrict Vpbx5WLHhBMt9H1KAU89OYeIhB8A9qRdFdkHIxhgfyXNf9hm3gMTg07a0uwBWfv
+\restrict 0tEhNZ1RxjAX14gKhAOtZoIwdXHLeshJFIsFSDRZFPEkb4NbkU4jaNJPBdjUow9
 
 -- Dumped from database version 17.10 (Debian 17.10-1.pgdg13+1)
 -- Dumped by pg_dump version 17.10 (Debian 17.10-1.pgdg13+1)
@@ -1552,7 +1552,7 @@ COPY public.biblioteca (id, curso_id, docente_id, titulo, descripcion, tipo, url
 --
 
 COPY public.cache (key, value, expiration) FROM stdin;
-laravel-cache-spatie.permission.cache	a:3:{s:5:"alias";a:0:{}s:11:"permissions";a:0:{}s:5:"roles";a:0:{}}	1788397989
+laravel-cache-spatie.permission.cache	a:3:{s:5:"alias";a:0:{}s:11:"permissions";a:0:{}s:5:"roles";a:0:{}}	1788487964
 \.
 
 
@@ -1569,6 +1569,7 @@ COPY public.cache_locks (key, owner, expiration) FROM stdin;
 --
 
 COPY public.chat_groups (id, created_at, updated_at, name, user_id) FROM stdin;
+2	2026-09-03 02:48:30	2026-09-03 02:48:30	Buzón de Preguntas	2
 \.
 
 
@@ -1577,6 +1578,7 @@ COPY public.chat_groups (id, created_at, updated_at, name, user_id) FROM stdin;
 --
 
 COPY public.chat_messages (id, created_at, updated_at, chat_group_id, user_id, message) FROM stdin;
+41	2026-09-03 02:53:20	2026-09-03 02:53:20	2	2	"¡Hola,  "equipo"! 👋 Soy tu profe Migue, y estoy muy emocionada de empezar esta nueva aventura con ustedes. Esta semana vamos a convertirnos en Detectives de la Comunicación. 🕵️‍♂️🕵️‍♀️ Vamos a descubrir cómo compartimos ideas, cómo escuchamos con el corazón y cómo nuestras palabras (¡y nuestros gestos!) tienen un superpoder: ¡el de conectar con los demás! En nuestro foro o en clase, quiero que sepas que tu voz es muy importante. No hay respuestas incorrectas, solo ganas de aprender juntos. ¡Prepárate, porque lo vamos a pasar genial! Con mucho cariño, Profe Migue! 💙
 \.
 
 
@@ -1636,6 +1638,7 @@ COPY public.failed_jobs (id, uuid, connection, queue, payload, exception, failed
 --
 
 COPY public.forums (id, created_at, updated_at, user_id, title, description) FROM stdin;
+6	2026-09-03 02:36:04	2026-09-03 02:36:04	2	Foro-Teatro: "Adivina lo que siento"	\N
 \.
 
 
@@ -1775,6 +1778,21 @@ COPY public.model_has_roles (role_id, model_type, model_id) FROM stdin;
 --
 
 COPY public.options (id, question_id, option_text, is_correct, created_at, updated_at) FROM stdin;
+18	8	Es quedarse callado todo el día sin hacer nada.	f	2026-09-03 02:31:50	2026-09-03 02:31:50
+19	8	Es compartir ideas, sentimientos o información con otras personas.	t	2026-09-03 02:31:50	2026-09-03 02:31:50
+20	8	Es jugar solo en tu habitación sin hablar con nadie.	f	2026-09-03 02:31:50	2026-09-03 02:31:50
+21	9	Tu mejor amigo.	f	2026-09-03 02:31:50	2026-09-03 02:31:50
+22	9	El chiste.	f	2026-09-03 02:31:50	2026-09-03 02:31:50
+23	9	Tú.	t	2026-09-03 02:31:50	2026-09-03 02:31:50
+24	10	La persona que escucha o recibe el mensaje.	t	2026-09-03 02:31:50	2026-09-03 02:31:50
+25	10	La persona que está gritando muy fuerte.	f	2026-09-03 02:31:50	2026-09-03 02:31:50
+26	10	El teléfono o el papel.	f	2026-09-03 02:31:50	2026-09-03 02:31:50
+27	11	Escribir una carta de cumpleaños.	f	2026-09-03 02:31:50	2026-09-03 02:31:50
+28	11	Saludar a tu profesora moviendo la mano.	t	2026-09-03 02:31:50	2026-09-03 02:31:50
+29	11	Cantar tu canción favorita.	f	2026-09-03 02:31:50	2026-09-03 02:31:50
+30	12	El ruido que hace el recreo.	f	2026-09-03 02:31:50	2026-09-03 02:31:50
+31	12	La información, idea o sentimiento que queremos compartir.	t	2026-09-03 02:31:50	2026-09-03 02:31:50
+32	12	El camino por donde caminamos a la escuela.	f	2026-09-03 02:31:50	2026-09-03 02:31:50
 \.
 
 
@@ -1807,6 +1825,7 @@ COPY public.portfolios (id, user_id, title, description, file_path, created_at, 
 --
 
 COPY public.posts (id, created_at, updated_at, topic_id, content, user_id) FROM stdin;
+5	2026-09-03 02:46:00	2026-09-03 02:46:00	7	Textos narrativos:\r\nCuentos sobre amistad y comunicación\r\nFábulas con mensajes sobre escuchar/hablar\r\nHistorias de malentendidos divertidos	2
 \.
 
 
@@ -1815,6 +1834,11 @@ COPY public.posts (id, created_at, updated_at, topic_id, content, user_id) FROM 
 --
 
 COPY public.questions (id, content, created_at, updated_at, stage_id) FROM stdin;
+8	¿Qué es la comunicación?	2026-09-03 02:31:50	2026-09-03 02:31:50	5
+9	Si tú le cuentas un chiste a tu mejor amigo, ¿Quién es el "emisor" (el que envía el mensaje)?	2026-09-03 02:31:50	2026-09-03 02:31:50	5
+10	En la comunicación, ¿Quién es el "receptor"?	2026-09-03 02:31:50	2026-09-03 02:31:50	5
+11	¿Cuál de los siguientes es un ejemplo de comunicación NO verbal (sin usar palabras)?	2026-09-03 02:31:50	2026-09-03 02:31:50	5
+12	¿Qué es el "mensaje"?	2026-09-03 02:31:50	2026-09-03 02:31:50	5
 \.
 
 
@@ -1842,7 +1866,8 @@ COPY public.roles (id, name, guard_name, created_at, updated_at) FROM stdin;
 --
 
 COPY public.sessions (id, user_id, ip_address, user_agent, payload, last_activity) FROM stdin;
-ntD3z2iZzVFEd08EQlmiXRnntdcujc0NnCk8MSD2	6	172.30.100.1	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36	YTo0OntzOjY6Il90b2tlbiI7czo0MDoiZDhhMkpHUUR1TmtpQkN3QjZTTzlHZEg0OWJlMjFHbU9oaklZVHlzVCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6NDQ6Imh0dHA6Ly9jaGFjaGFyYS50YWlsYjM3YzZkLnRzLm5ldC9wb3J0Zm9saW9zIjtzOjU6InJvdXRlIjtzOjE2OiJwb3J0Zm9saW9zLmluZGV4Ijt9czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6Njt9	1788312844
+MqWjM9BTBv8EE30GcApKrxztPkAK7ml1NPwXLbM5	2	172.30.100.1	Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36	YTo0OntzOjY6Il90b2tlbiI7czo0MDoiNERhQ0ViQWlLeUlWRkw3MUhlYVBiaFRvZ0M0TE1pQnFkeDk3d2VHTSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6NDc6Imh0dHA6Ly9jaGFjaGFyYS50YWlsYjM3YzZkLnRzLm5ldC9jaGF0LWdyb3Vwcy8yIjtzOjU6InJvdXRlIjtzOjE2OiJjaGF0LWdyb3Vwcy5zaG93Ijt9czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6Mjt9	1788404000
+V60BjbR9RKfMs1t2td9zh2AaN69IBl8UeBevV6px	\N	172.30.100.1	curl/8.18.0	YTozOntzOjY6Il90b2tlbiI7czo0MDoiWjRYZWZHZWhKQ0xGMDRVdlVuYXZmVHpKVmtKTW02ZmI2Q2VBSFBXTCI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODA4NSI7czo1OiJyb3V0ZSI7Tjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==	1788400761
 \.
 
 
@@ -1859,6 +1884,7 @@ COPY public.stage_user_answers (id, user_id, stage_id, question_id, option_id, c
 --
 
 COPY public.stages (id, workshop_id, name, description, "position", max_points, created_at, updated_at, pdf, video) FROM stdin;
+5	15	Identificación de Elementos	Lee las siguientes situaciones e identifica los elementos de la comunicación	1	50	2026-09-03 02:31:50	2026-09-03 02:31:50	pdfs/vxG44FB1xB9KkCS7W7I5lQIyk8ugkMxNzIVeZ8LW.pdf	\N
 \.
 
 
@@ -1887,6 +1913,7 @@ COPY public.temas (id, unidad_id, titulo, contenido, file_path, orden, created_a
 --
 
 COPY public.topics (id, created_at, updated_at, forum_id, title, user_id) FROM stdin;
+7	2026-09-03 02:42:06	2026-09-03 02:42:06	6	¿Es fácil o difícil entenderse sin palabras?	2
 \.
 
 
@@ -1915,10 +1942,10 @@ COPY public.users (id, name, email, email_verified_at, password, remember_token,
 3	Daphnee Heidenreich	tmosciski@example.net	2025-10-14 11:31:43	$2y$12$6yvk40SQhta9Nz/QEwW1IO62kXIAO5O8csdXlp1Lak3H17EJ3w77K	NgqWoEkoVYik8xMkRcqDBAUYnxU79k5O0j2PunAy8uXuvUY0gWQUgr44AGoU	2025-10-14 11:31:44	2025-10-18 15:04:28	2025-10-18 15:04:28	alumno
 5	Pedro Marmol	botsford.kristoffer@example.net	2025-10-18 01:26:34	$2y$12$7loKo8ajJOjM8Bz5rYUHAeCzFMTJRIhSVROLpNF4NR3sE/I09QM86	m4W8RYuPjp	2025-10-18 01:26:34	2025-10-18 15:09:09	2025-10-18 15:09:09	alumno
 7	Chris Rolon	admin123@gmail.com	\N	$2y$12$EwxqOz0LpwOo27yZYtVEkOfd5GZU26buZkawQZFclTv4vtSZ.xrLO	\N	2025-12-15 20:40:32	2025-12-20 02:37:43	2025-12-20 02:37:43	alumno
-6	Pedro Marmol	marmol21@hotmail.com	2025-10-18 01:36:50	$2y$12$6Vsb78Zq2lIKZanUOsVXie5QVxp22eCpWoSYhHKD08X0prYirDo52	oXEE6jbvqP8Ju5cn4eAwvBEu3M0ejTp5Rx0yrtRYfEh3r0NoE8bL85B5CqCx	2025-10-18 01:36:50	2025-12-27 07:24:23	\N	alumno
 4	AdminDev	admin@platform.com	2025-10-18 00:58:39	$2y$12$jmylkKhc5OSN2n7h.9fnGeX4XNLLV8ot.V/WePN0lrpmBtwXu5.dO	zbT52RRldXd7S2h8XAKVDcluNm0JjJ5kB4dX15jYFqivF5Xjo0EjWlJanwf9	2025-10-18 00:58:39	2026-01-31 11:27:26	\N	admin
 8	Angela Aguilar	angel123@gmail.com	\N	$2y$12$d0GUsd4MFQmMGcposbSovO3Q197DvOOmm0EDQ5eOi51qBpo6SpYm.	\N	2026-05-15 00:04:09	2026-05-15 00:04:09	\N	alumno
-2	Profe Migue	profe@mail.com	2025-10-12 10:26:35	$2y$12$k2TLmuMeKG65LDpy0DVj0.wIZjlAS46SwOo2j2IA5i0.cQEflm.m2	IbmmfQj4pDLVSSfg1piITOutMvTB7NklUpJk3MwvxUADMcrj0hmysqJIvIi9	2025-10-12 10:26:35	2026-01-31 11:25:25	\N	docente
+6	Pedro Marmol	marmol21@hotmail.com	2025-10-18 01:36:50	$2y$12$6Vsb78Zq2lIKZanUOsVXie5QVxp22eCpWoSYhHKD08X0prYirDo52	BHPCeIZZWEbCVLrzmmEbWArzOtwU71AjvxioyzllfSzC9DccUjWPaZkWUZAt	2025-10-18 01:36:50	2025-12-27 07:24:23	\N	alumno
+2	Profe Migue	profe@mail.com	2025-10-12 10:26:35	$2y$12$k2TLmuMeKG65LDpy0DVj0.wIZjlAS46SwOo2j2IA5i0.cQEflm.m2	m5MgGkbFwLa5Md2iSzAb7iwdRohuMspiOv3xaSnBKpZkOqgX7P8DUNqOVH2r	2025-10-12 10:26:35	2026-01-31 11:25:25	\N	docente
 \.
 
 
@@ -1927,6 +1954,7 @@ COPY public.users (id, name, email, email_verified_at, password, remember_token,
 --
 
 COPY public.workshop_user (id, workshop_id, user_id, created_at, updated_at) FROM stdin;
+3	15	2	2026-09-03 02:12:44	2026-09-03 02:12:44
 \.
 
 
@@ -1935,6 +1963,7 @@ COPY public.workshop_user (id, workshop_id, user_id, created_at, updated_at) FRO
 --
 
 COPY public.workshops (id, title, docente_id, max_points, created_at, updated_at) FROM stdin;
+15	Unidad 1	2	100	2026-09-03 02:12:44	2026-09-03 02:12:44
 \.
 
 
@@ -1963,14 +1992,14 @@ SELECT pg_catalog.setval('public.biblioteca_id_seq', 6, true);
 -- Name: chat_groups_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.chat_groups_id_seq', 1, true);
+SELECT pg_catalog.setval('public.chat_groups_id_seq', 2, true);
 
 
 --
 -- Name: chat_messages_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.chat_messages_id_seq', 40, true);
+SELECT pg_catalog.setval('public.chat_messages_id_seq', 41, true);
 
 
 --
@@ -2019,7 +2048,7 @@ SELECT pg_catalog.setval('public.failed_jobs_id_seq', 1, false);
 -- Name: forums_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.forums_id_seq', 5, true);
+SELECT pg_catalog.setval('public.forums_id_seq', 6, true);
 
 
 --
@@ -2047,7 +2076,7 @@ SELECT pg_catalog.setval('public.migrations_id_seq', 75, true);
 -- Name: options_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.options_id_seq', 17, true);
+SELECT pg_catalog.setval('public.options_id_seq', 32, true);
 
 
 --
@@ -2068,14 +2097,14 @@ SELECT pg_catalog.setval('public.portfolios_id_seq', 2, true);
 -- Name: posts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.posts_id_seq', 4, true);
+SELECT pg_catalog.setval('public.posts_id_seq', 5, true);
 
 
 --
 -- Name: questions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.questions_id_seq', 7, true);
+SELECT pg_catalog.setval('public.questions_id_seq', 12, true);
 
 
 --
@@ -2096,7 +2125,7 @@ SELECT pg_catalog.setval('public.stage_user_answers_id_seq', 8, true);
 -- Name: stages_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.stages_id_seq', 4, true);
+SELECT pg_catalog.setval('public.stages_id_seq', 5, true);
 
 
 --
@@ -2117,7 +2146,7 @@ SELECT pg_catalog.setval('public.temas_id_seq', 20, true);
 -- Name: topics_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.topics_id_seq', 6, true);
+SELECT pg_catalog.setval('public.topics_id_seq', 7, true);
 
 
 --
@@ -2145,14 +2174,14 @@ SELECT pg_catalog.setval('public.users_id_seq', 8, true);
 -- Name: workshop_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.workshop_user_id_seq', 2, true);
+SELECT pg_catalog.setval('public.workshop_user_id_seq', 3, true);
 
 
 --
 -- Name: workshops_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.workshops_id_seq', 14, true);
+SELECT pg_catalog.setval('public.workshops_id_seq', 15, true);
 
 
 --
@@ -2866,5 +2895,5 @@ ALTER TABLE ONLY public.workshops
 -- PostgreSQL database dump complete
 --
 
-\unrestrict Vpbx5WLHhBMt9H1KAU89OYeIhB8A9qRdFdkHIxhgfyXNf9hm3gMTg07a0uwBWfv
+\unrestrict 0tEhNZ1RxjAX14gKhAOtZoIwdXHLeshJFIsFSDRZFPEkb4NbkU4jaNJPBdjUow9
 
