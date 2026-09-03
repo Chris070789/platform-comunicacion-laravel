@@ -12,6 +12,7 @@ class Unidad extends Model
         'titulo',
         'resumen',
         'orden',
+        'fecha_limite',
     ];
     protected $casts = [
         'fecha_limite' => 'datetime:Y-m-d',   // o 'date' si solo necesitas día

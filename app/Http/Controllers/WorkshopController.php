@@ -63,15 +63,15 @@ class WorkshopController extends Controller
         $this->authorize('update', $workshop);
 
         $request->validate([
-            'name'        => 'required|string|max:255',
+            'title'       => 'required|string|max:255',
             'description' => 'nullable|string',
             'max_points'  => 'required|integer|min:1',
         ]);
 
-        $workshop->update($request->only('name', 'description', 'max_points'));
+        $workshop->update($request->only('title', 'description', 'max_points'));
 
         return redirect()
-            ->route('dashboard')
+            ->route('docente.taller.index')
             ->with('success', 'Taller actualizado.');
     }
 

@@ -6,7 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Workshop extends Model
 {
-    protected $fillable = ['title', 'docente_id', 'max_points'];
+    protected $fillable = [
+        'title',
+        'description',
+        'docente_id',
+        'max_points'
+    ];
     public function teacher()
     {
         return $this->belongsTo(User::class);
