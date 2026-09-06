@@ -49,7 +49,7 @@ class BibliotecaController extends Controller
 
         $biblioteca = Biblioteca::create([
             'curso_id' => $curso->id,
-            'docente_id' => Auth::id(),
+            'docente_id' => $user->id,
             'titulo' => $request->titulo,
             'descripcion' => $request->descripcion,
             'tipo' => $request->tipo,
