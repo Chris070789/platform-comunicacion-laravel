@@ -269,19 +269,38 @@
 
                     <div class="grid gap-4">
                         @foreach ($stages as $stage)
-                        <div class="bg-white dark:bg-gray-800 p-5 rounded-2xl border border-gray-100 dark:border-gray-700/70 shadow-sm flex items-center justify-between group hover:border-indigo-400 dark:hover:border-indigo-500 hover:shadow-md transition-all duration-300">
-                            <div class="pr-4">
-                                <h4 class="font-bold text-gray-800 dark:text-gray-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
-                                    {{ $stage->name }}
-                                </h4>
+                        <div class="bg-white dark:bg-gray-800 p-5 rounded-2xl border transition-all duration-300 flex items-center justify-between group shadow-sm hover:shadow-md {{ $stage->is_completed ? 'border-emerald-200 dark:border-emerald-900/50 bg-emerald-50/20 dark:bg-emerald-950/10' : 'border-gray-100 dark:border-gray-700/70 hover:border-indigo-400 dark:hover:border-indigo-500' }}">
+
+                            <div class="pr-4 flex-1">
+                                <div class="flex items-center gap-2">
+                                    <h4 class="font-bold text-gray-800 dark:text-gray-100 transition-colors {{ $stage->is_completed ? 'group-hover:text-emerald-600 dark:group-hover:text-emerald-400' : 'group-hover:text-indigo-600 dark:group-hover:text-indigo-400' }}">
+                                        {{ $stage->name }}
+                                    </h4>
+
+                                    {{-- Badge de estado --}}
+                                    @if($stage->is_completed)
+                                    <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-300">
+                                        <i class="bi bi-check-circle-fill text-xs"></i>
+                                        Completado
+                                    </span>
+                                    @else
+                                    <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-300">
+                                        Pendiente
+                                    </span>
+                                    @endif
+                                </div>
+
                                 <p class="text-sm text-gray-500 dark:text-gray-400 mt-1 line-clamp-1 leading-relaxed">
                                     {{ $stage->description }}
                                 </p>
                             </div>
+
+                            {{-- Botón de acción adaptado --}}
                             <a href="{{ route('dashboard.stage', $stage->id) }}"
-                                class="p-2 bg-indigo-50 text-indigo-600 rounded-lg group-hover:bg-indigo-600 group-hover:text-white transition-colors shrink-0">
-                                <i class="bi bi-arrow-right"></i>
+                                class="p-2.5 rounded-xl transition-all shrink-0 {{ $stage->is_completed ? 'bg-emerald-100 text-emerald-700 hover:bg-emerald-600 hover:text-white dark:bg-emerald-900/40 dark:text-emerald-300 dark:hover:bg-emerald-600 dark:hover:text-white' : 'bg-indigo-50 text-indigo-600 group-hover:bg-indigo-600 group-hover:text-white dark:bg-indigo-950/50 dark:text-indigo-400' }}">
+                                <i class="bi {{ $stage->is_completed ? 'bi-check-lg' : 'bi-arrow-right' }} text-lg"></i>
                             </a>
+
                         </div>
                         @endforeach
                     </div>

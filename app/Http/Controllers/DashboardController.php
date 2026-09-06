@@ -27,7 +27,12 @@ class DashboardController extends Controller
 
         $progress = $totalStages > 0 ? ($completedStages / $totalStages) * 100 : 0;
 
-        return view('dashboard', compact('stages', 'progress', 'completedStages', 'totalStages'));
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+        $completedStageIds = $user->completedStages()->pluck('stage_id')->toArray();
+        $stages = Stage::all();
+
+        return view('dashboard', compact('stages', 'progress', 'completedStages', 'totalStages', 'completedStageIds'));
     }
 
     public function dashboard()
