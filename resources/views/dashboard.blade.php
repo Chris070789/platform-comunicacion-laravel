@@ -379,7 +379,7 @@
                         {{-- Barra horizontal de progreso --}}
                         <div class="w-full bg-gray-200 dark:bg-gray-600 h-3 rounded-full overflow-hidden p-0.5">
                             <div class="bg-gradient-to-r from-cyan-400 via-indigo-500 to-purple-500 h-full rounded-full transition-all duration-1000 shadow-sm"
-                                style="width: {{ $totalStages > 0 ? ($completedStages / $totalStages) * 100 : 0 }}%;">
+                                style="--p: {{ $totalStages > 0 ? ($completedStages / $totalStages) * 100 : 0 }}%; width: var(--p);">
                             </div>
                         </div>
                     </div>
