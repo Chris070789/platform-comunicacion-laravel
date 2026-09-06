@@ -21,6 +21,7 @@ class StageController extends Controller
         $stages = $workshop->stages()->orderBy('position')->get();
 
         return view('docente.taller.stages', compact('workshop', 'stages'));
+        
     }
 
     /* ---------- Crear ejercicio (form) ---------- */
